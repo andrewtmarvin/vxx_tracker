@@ -1,0 +1,106 @@
+body {
+    background-color: lightslategray;
+    margin: 0px;
+}
+/*button:focus {*/
+/*    color:blue;*/
+/*}*/
+
+nav {
+    /*position: absolute;*/
+    /*top: 150px;*/
+    z-index: 10000;
+}
+/*#app-title {*/
+/*position: absolute;*/
+/*    top:0px;*/
+/*    left:50%;*/
+/*    margin-left: -125px;*/
+/*    width: 250px;*/
+/*    z-index: 10000;*/
+/*    padding: 50px;*/
+/*    background-color: white;*/
+/*    border-radius: 10%;*/
+
+/*}*/
+
+.navbar-brand {
+    padding: 0px!important;
+}
+.dropdown-menu {
+    overflow: auto;
+    max-height:50vh;
+}
+.navbar-toggler {
+    float:right!important;
+}
+#mapid {
+    position: absolute;
+    height:100%;
+    width:100vw;
+}
+
+.leaflet-top {
+    margin-top: 125px;
+}
+
+.leaflet-marker-icon {
+    border-radius: 10%;
+    border: 2px white solid;
+    box-shadow: 1px 1px 2px gray;
+}
+.map-pin {
+    border: none;
+    box-shadow: none;
+}
+
+img, video {
+    max-width: 50vw!important;
+    overflow:auto!important;
+}
+
+.leaflet-popup-content {
+    width: auto!important;
+}
+
+.popupImage {
+    width: 500px;
+}
+
+.route-title {
+    font-weight: bold;
+    font-size: 1.2em;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.route-details {
+    white-space: nowrap;
+    display:inline-block;
+    padding:0px 15px 15px 15px;
+    margin: 0px!important;
+    list-style-image: url(http://127.0.0.1:8000/static/rest.png);
+}
+details {
+    text-align: center;
+}
+summary {
+    display: inline-block!important;
+    font-weight: bold;
+    border: 1px black solid;
+    width: 100px;
+}
+details summary::-webkit-details-marker {
+  display:none;
+}
+iframe {
+    max-width: 75vw !important;
+    margin-top: 10px;
+}
+  /*phone section*/
+/*@media only screen and (max-width: 1000px) {*/
+/*    iframe {*/
+/*    max-height: 60vh !important;*/
+/*  }*/
+/*}*/

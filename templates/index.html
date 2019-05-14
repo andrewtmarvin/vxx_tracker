@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extrahead %}
+
+<script src="{% static 'leaflet/leaflet.js' %} "></script>
+<script src="{% static 'leaflet/gpx.min.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div id="mapid"></div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#"><img src="{% static 'mainlogo.png' %} " width=75 height=75/> Vòng Xe Xanh Adventure Tracker</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          2016
+        </a>
+        <div class="dropdown-menu" aria-labelledby="2016Dropdown">
+                {% for year, day, url, title, journal in routes_2016 %}
+                <a class="dropdown-item" data-toggle="collapse" data-target=".navbar-collapse.show" href="#" name="{{ url }}">Day: {{ day }}</a>
+                <script>
+                    window["route{{year}}{{day}}"] = "{{title}}";
+                    window["route{{year}}{{day}}-text"] = '{{journal|safe}}';
+                </script>
+                {% endfor %}
+        </div>
+      </li>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="2020Dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          2020
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% if routes_2020 %}
+                {% for year, day, url, title, journal in routes_2020 %}
+                <a class="dropdown-item" data-toggle="collapse" data-target=".navbar-collapse.show" href="#" name="{{ url }}">Day: {{ day }}</a>
+                <script>
+                    window["route{{year}}{{day}}"] = "{{title}}";
+                    window["route{{year}}{{day}}-text"] = '{{journal|safe}}';
+                </script>
+                {% endfor %}
+            {% else %}
+                Coming February, 2020!
+            {% endif %}
+        </div>
+      </li>
+
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+
+<script>
+    // accepting json file from backend
+    var json_stuff = {{ posts|safe }}
+
+</script>
+
+<script src="{% static 'main.js' %}"></script>
+{% endblock %}
