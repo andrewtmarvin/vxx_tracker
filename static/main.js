@@ -17,13 +17,12 @@ for (i = 0; i < json_length; i++) {
     try {
         if (json_stuff[i][6].includes('.jpg')) {
             popCont = '<img class="popupImage" src="' + json_stuff[i][6] + '" alt="' + json_stuff[i][2] + '"><br><p>' + json_stuff[i][1].slice(0, 10) + '<br>' + json_stuff[i][3] + '<br>' + json_stuff[i][2] + '<br>Posted by <a href="' + json_stuff[i][9] + '">' + json_stuff[i][8] + '</a></p>';
+        } else {
+            popCont = '<video controls><source src="' + json_stuff[i][6] + '" type="video/mp4"><source src="' + json_stuff[i][6] + '" type="video/ogg">Your browser does not support the video tag.</video><br><p>' + json_stuff[i][1].slice(0, 10) + '<br>' + json_stuff[i][3] + '<br>' + json_stuff[i][2] + '<br>Posted by <a href="' + json_stuff[i][9] + '">' + json_stuff[i][8] + '</a></p>';
         }
-        else {
-            popCont = '<video controls><source src="' + json_stuff[i][6] +'" type="video/mp4"><source src="' + json_stuff[i][6] +'" type="video/ogg">Your browser does not support the video tag.</video><br><p>' + json_stuff[i][1].slice(0, 10) + '<br>' + json_stuff[i][3] + '<br>' + json_stuff[i][2] + '<br>Posted by <a href="' + json_stuff[i][9] + '">' + json_stuff[i][8] + '</a></p>';
-        }}
-    catch(e) {
-            console.log(e)
-        }
+    } catch (e) {
+        console.log(e)
+    }
 
     // generating marker icons
     L.marker([json_stuff[i][4], json_stuff[i][5]], {
@@ -71,36 +70,37 @@ $(".dropdown-item").click(function () {
                             renderer: myRenderer
                         }
                     })
-                        // attaches popup to route so can be opened and closed by clicking on
+                    // attaches popup to route so can be opened and closed by clicking on
                         .on('loaded', function (e) {
-                        // console.log(e.target._info); //prints everything we can call from the gpx file
-                        routePopCont = "<p class='route-title'>" + window["route" + e.target.get_start_time().getFullYear() + day]
-                        + "</p><p class='route-details'>" + e.target.get_start_time().toLocaleString("en-US", {timeZone: "Asia/Ho_Chi_Minh"})
-                        + " - " + e.target.get_end_time().toLocaleString("en-US", {timeZone: "Asia/Ho_Chi_Minh"}).slice(12)
-                        + "<br>Moving time: " + e.target.get_duration_string(e.target.get_moving_time())
-                        + "<br>Average speed: " + e.target.get_total_speed().toFixed(2)
-                        + " km/h<br>Distance: " + (e.target.get_distance()/1000).toFixed(2)
-                        + " km<br>Elevation gain: " + Math.round(e.target.get_elevation_gain()) + "m</p><details>"
-                        + "<summary>Day " + day + " Journal</summary>" + window["route" + e.target.get_start_time().getFullYear() + day + "-text"] + "</details>";
-                        e.target.bindPopup(routePopCont);
-                        mymap.fitBounds(e.target.getBounds());
-                        window["menuId" + s ] = e.target.getBounds();
-                    })
-                        // This attached a popup to the endpoint when the route line is drawn
-                        .on('addpoint', function(e) {
-                        if (e.point_type === 'end') {
+                            // console.log(e.target._info); //prints everything we can call from the gpx file
                             routePopCont = "<p class='route-title'>" + window["route" + e.target.get_start_time().getFullYear() + day]
-                        + "</p><p class='route-details'>" + e.target.get_start_time().toLocaleString("en-US", {timeZone: "Asia/Ho_Chi_Minh"})
-                        + " - " + e.target.get_end_time().toLocaleString("en-US", {timeZone: "Asia/Ho_Chi_Minh"}).slice(12)
-                        + "<br>Moving time: " + e.target.get_duration_string(e.target.get_moving_time())
-                        + "<br>Average speed: " + e.target.get_total_speed().toFixed(2)
-                        + " km/h<br>Distance: " + (e.target.get_distance()/1000).toFixed(2)
-                        + " km<br>Elevation gain: " + Math.round(e.target.get_elevation_gain()) + "m</p><details>"
-                        + "<summary>Day " + day + " Journal</summary>" + window["route" + e.target.get_start_time().getFullYear() + day + "-text"] + "</details>";
-                            mymap.openPopup(routePopCont, e.point['_latlng'], {
-                                direction: 'bottom',
-                            });
-                        }})
+                                + "</p><p class='route-details'>" + e.target.get_start_time().toLocaleString("en-US", {timeZone: "Asia/Ho_Chi_Minh"})
+                                + " - " + e.target.get_end_time().toLocaleString("en-US", {timeZone: "Asia/Ho_Chi_Minh"}).slice(12)
+                                + "<br>Moving time: " + e.target.get_duration_string(e.target.get_moving_time())
+                                + "<br>Average speed: " + e.target.get_total_speed().toFixed(2)
+                                + " km/h<br>Distance: " + (e.target.get_distance() / 1000).toFixed(2)
+                                + " km<br>Elevation gain: " + Math.round(e.target.get_elevation_gain()) + "m</p><details>"
+                                + "<summary>Day " + day + " Journal</summary>" + window["route" + e.target.get_start_time().getFullYear() + day + "-text"] + "</details>";
+                            e.target.bindPopup(routePopCont);
+                            mymap.fitBounds(e.target.getBounds());
+                            window["menuId" + s] = e.target.getBounds();
+                        })
+                        // This attached a popup to the endpoint when the route line is drawn
+                        .on('addpoint', function (e) {
+                            if (e.point_type === 'end') {
+                                routePopCont = "<p class='route-title'>" + window["route" + e.target.get_start_time().getFullYear() + day]
+                                    + "</p><p class='route-details'>" + e.target.get_start_time().toLocaleString("en-US", {timeZone: "Asia/Ho_Chi_Minh"})
+                                    + " - " + e.target.get_end_time().toLocaleString("en-US", {timeZone: "Asia/Ho_Chi_Minh"}).slice(12)
+                                    + "<br>Moving time: " + e.target.get_duration_string(e.target.get_moving_time())
+                                    + "<br>Average speed: " + e.target.get_total_speed().toFixed(2)
+                                    + " km/h<br>Distance: " + (e.target.get_distance() / 1000).toFixed(2)
+                                    + " km<br>Elevation gain: " + Math.round(e.target.get_elevation_gain()) + "m</p><details>"
+                                    + "<summary>Day " + day + " Journal</summary>" + window["route" + e.target.get_start_time().getFullYear() + day + "-text"] + "</details>";
+                                mymap.openPopup(routePopCont, e.point['_latlng'], {
+                                    direction: 'bottom',
+                                });
+                            }
+                        })
                         .addTo(mymap);
                 } else {
                     // if the day is a rest day and doesn't have a gpx file, we create a marker label it a rest day
@@ -113,12 +113,10 @@ $(".dropdown-item").click(function () {
                             popupAnchor: [0, 0],
                         })
                     })
-                        .bindPopup("<p class='route-title'>" + mapgps[2] + "</p><details><summary>Day " + mapgps[4] + " Journal</summary>" + mapgps[3] + "</details>", {
-
-                        }).openPopup()
+                        .bindPopup("<p class='route-title'>" + mapgps[2] + "</p><details><summary>Day " + mapgps[4] + " Journal</summary>" + mapgps[3] + "</details>", {}).openPopup()
                         .addTo(mymap).openPopup();
 
-                    window["menuId" + s ] = [mapgps[0], mapgps[1]]; // keeps info in memory so clicking on the day again still re-centers map on marker without reloading gpx file
+                    window["menuId" + s] = [mapgps[0], mapgps[1]]; // keeps info in memory so clicking on the day again still re-centers map on marker without reloading gpx file
                     mymap.panTo([mapgps[0], mapgps[1]], {
                         animate: true
                     });//pan to the rest day location
@@ -134,8 +132,7 @@ $(".dropdown-item").click(function () {
         try {
             mymap.fitBounds(window["menuId" + s]);
 
-        }
-        catch(err) {
+        } catch (err) {
             mymap.panTo(window["menuId" + s]);
         }
     }

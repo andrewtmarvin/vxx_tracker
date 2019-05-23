@@ -1,7 +1,7 @@
 from django.urls import path, register_converter
 from . import views, converters
 
-app_name='tracker'
+app_name = 'tracker'
 
 register_converter(converters.NegativeIntConverter, 'negint')
 

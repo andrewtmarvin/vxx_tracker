@@ -1,3 +1,4 @@
+# This converter allows for negative integers to be used in the urls.py file
 class NegativeIntConverter:
     regex = '-?\d+'
 

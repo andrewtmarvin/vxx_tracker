@@ -1,7 +1,6 @@
 from django.db import models
-import os
-from django.dispatch import receiver
-# Create your models here.
+
+# Models here.
 
 
 class PostRecord(models.Model):
@@ -10,6 +9,7 @@ class PostRecord(models.Model):
 
     def __str__(self):
         return 'Post ID: ' + str(self.post_id) + ' ---- Keep: ' + str(self.keep)
+
 
 class InstaPost(models.Model):
     post_id = models.IntegerField(unique=True, null=True)
@@ -40,11 +40,8 @@ class DayRoute(models.Model):
         return 'Year: ' + str(self.year) + '. Day: ' + str(self.day)
 
 
-
-
-
-
-
+# import os
+# from django.dispatch import receiver
 
 # Ensures thumbnail and json files are deleted when an InstaPost object is removed from the database
 # No longer necessary because not saving files on server anymore
