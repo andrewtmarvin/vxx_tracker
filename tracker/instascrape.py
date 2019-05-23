@@ -1,5 +1,5 @@
 import instaloader, geopy
-from .models import PostRecord, InstaPost, DayRoute
+from .models import PostRecord, InstaPost
 from random import uniform
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
