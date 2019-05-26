@@ -1,26 +1,11 @@
 import instaloader, geopy
 from .models import PostRecord, InstaPost
 from random import uniform
-from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
-import time
-from . import readgmail
 
 
 def main():
-    # Enter Instagram account info here
-    username = ""
-    password = ""
-    # Creates authenticated session
-    session = instaloader.Instaloader(compress_json=False)
-    # Attempts to log into Instagram.
-    try:
-        session.login(username, password)
-    # If login triggers "suspicious login attempt" from Instagram, calls function to overcome two-factor authentication
-    except instaloader.ConnectionException as err:
-        insta_checkpoint(err)
-    # Creates a profile object that will be used to access all Instagram posts
-    profile = instaloader.Profile.from_username(session.context, 'vong_xe_xanh')
+    # Creates Instagram session
+    profile = instaloader.Profile.from_username(instaloader.Instaloader().context, 'vong_xe_xanh')
     insta_check(profile)
     insta_tagged_check(profile)
 
@@ -175,23 +160,24 @@ def update_database(post):
 
 
 # Function to overcome the two-factor authentication required by Instagram when "suspicious login attempt" is generated
-def insta_checkpoint(err):
-    check_url = err.args[0][50:-38]
-    # Sets Selenium to run in background
-    ops = Options()
-    ops.add_argument('-headless')
-    ops.add_argument("--disable-dev-shm-usage")
-    ops.add_argument("--no-sandbox")
-    # Initiates Instagram checkpoint confirmation code
-    driver = webdriver.Firefox(firefox_options=ops)
-    driver.get(check_url)
-    driver.find_element_by_xpath("//*[contains(text(), 'Send Security Code')]").click()
-    time.sleep(2)  # Sleeps two seconds to give Instagram time to send email to inbox
-    # Gets security code from Gmail API
-    code = readgmail.main()
-    # Inputs confirmation code into Instagram browser to complete authentication process
-    driver.find_element_by_name('security_code').send_keys(code)
-    driver.find_element_by_xpath("//button[contains(text(), 'Submit')]").click()
-    time.sleep(1)
-    driver.close()
-    print('Instagram security check completed')
+# Depreciated in favor of two-step login which was also depreciated when no longer needed
+# def insta_checkpoint(err):
+#     check_url = err.args[0][50:-38]
+#     # Sets Selenium to run in background
+#     ops = Options()
+#     ops.add_argument('-headless')
+#     ops.add_argument("--disable-dev-shm-usage")
+#     ops.add_argument("--no-sandbox")
+#     # Initiates Instagram checkpoint confirmation code
+#     driver = webdriver.Firefox(firefox_options=ops)
+#     driver.get(check_url)
+#     driver.find_element_by_xpath("//*[contains(text(), 'Send Security Code')]").click()
+#     time.sleep(2)  # Sleeps two seconds to give Instagram time to send email to inbox
+#     # Gets security code from Gmail API
+#     code = readgmail.main()
+#     # Inputs confirmation code into Instagram browser to complete authentication process
+#     driver.find_element_by_name('security_code').send_keys(code)
+#     driver.find_element_by_xpath("//button[contains(text(), 'Submit')]").click()
+#     time.sleep(1)
+#     driver.close()
+#     print('Instagram security check completed')

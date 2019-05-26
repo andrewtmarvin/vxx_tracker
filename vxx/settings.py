@@ -54,7 +54,7 @@ MIDDLEWARE = [
 
 CRON_CLASSES = [
     "tracker.cronjobs.URLCheckJob",
-    "tracker.cronjobs.MyCronJob",
+    "tracker.cronjobs.InstaScrapeJob",
 
 ]
 

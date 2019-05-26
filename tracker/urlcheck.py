@@ -26,7 +26,7 @@ def dead_url_check():
                 # If the URL does not lead to a media file, deletes posts so that it can be refreshed by instacrape.py
                 else:
                     print(threading.current_thread().name + ': dead url, deleting post and post record for id: ' + str(
-                        post.post_id))
+                        post.post_id) + str(post.location_text))
                     post.delete()
                     try:
                         rec = PostRecord.objects.get(post_id=post.post_id)
