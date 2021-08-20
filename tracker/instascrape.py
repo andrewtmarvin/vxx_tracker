@@ -6,8 +6,8 @@ from random import uniform
 def main():
     # Creates Instagram session
     profile = instaloader.Profile.from_username(instaloader.Instaloader().context, 'vong_xe_xanh')
-    insta_check(profile)
-    insta_tagged_check(profile)
+    # insta_check(profile)
+    # insta_tagged_check(profile)
 
 
 # Function to check for and download new Instagram posts

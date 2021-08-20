@@ -5,8 +5,8 @@ import json
 
 
 # Upon server reload, run functions to update the Django database
-# urlcheck.dead_url_check()
-# instascrape.main()
+urlcheck.dead_url_check()
+instascrape.main()
 
 
 # View for main page
