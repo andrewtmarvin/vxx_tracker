@@ -1,12 +1,11 @@
 from django.shortcuts import render, HttpResponse
-from . import instascrape, urlcheck
+from . import instascrape
 from .models import InstaPost, DayRoute
 import json
 
 
 # Upon server reload, run functions to update the Django database
-urlcheck.dead_url_check()
-instascrape.main()
+# instascrape.main()
 
 
 # View for main page

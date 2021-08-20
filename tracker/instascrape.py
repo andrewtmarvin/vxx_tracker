@@ -4,9 +4,14 @@ from random import uniform
 
 
 def main():
-    # Creates Instagram session
-    profile = instaloader.Profile.from_username(instaloader.Instaloader().context, 'vong_xe_xanh')
-    # insta_check(profile)
+    # Creates logged in Instagram session
+    USERNAME = "vong_xe_xanh"
+    PASSWORD = "th1nk4urs3lf"
+
+    L = instaloader.Instaloader()
+    L.login(USERNAME, PASSWORD)
+    profile = instaloader.Profile.from_username(L.context, USERNAME)
+    insta_check(profile)
     # insta_tagged_check(profile)
 
 
@@ -148,6 +153,7 @@ def update_database(post):
     newpost.caption = post.caption
     newpost.location_text = post.location.name
     # Change the URL if it's a video
+    post._obtain_metadata()
     if post._full_metadata_dict["is_video"]:
         newpost.pic_url = post.video_url
     else:

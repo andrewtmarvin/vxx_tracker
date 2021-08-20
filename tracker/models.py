@@ -1,8 +1,6 @@
 from django.db import models
 
 # Models here.
-
-
 class PostRecord(models.Model):
     keep = models.BooleanField()
     post_id = models.IntegerField(unique=True, null=True)
@@ -18,8 +16,8 @@ class InstaPost(models.Model):
     location_text = models.CharField(max_length=2000)
     lat = models.FloatField(null=True)
     lng = models.FloatField(null=True)
-    pic_url = models.URLField()
-    thumb_url = models.URLField(null=True, max_length=2000)
+    pic_file = models.FileField(blank=True, upload_to='post_pics/')
+    thumb_file = models.FileField(blank=True, upload_to='post_thumbs/')
     uploader_name = models.CharField(null=True, max_length=200)
     uploader_profile_url = models.URLField(null=True)
 
