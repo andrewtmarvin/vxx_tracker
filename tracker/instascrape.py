@@ -6,7 +6,7 @@ from random import uniform
 def main():
     # Creates logged in Instagram session
     USERNAME = "vong_xe_xanh"
-    PASSWORD = "th1nk4urs3lf"
+    PASSWORD = ""
 
     L = instaloader.Instaloader()
     L.login(USERNAME, PASSWORD)
