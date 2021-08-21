@@ -1,19 +1,15 @@
 import instaloader, geopy
 from .models import PostRecord, InstaPost
 from random import uniform
+from credentials import *
 
 
 def main():
-    # Creates logged in Instagram session
-    USERNAME = "vong_xe_xanh"
-    PASSWORD = ""
-
     L = instaloader.Instaloader()
     L.login(USERNAME, PASSWORD)
     profile = instaloader.Profile.from_username(L.context, USERNAME)
     insta_check(profile)
     # insta_tagged_check(profile)
-
 
 # Function to check for and download new Instagram posts
 def insta_check(profile):

@@ -4,8 +4,8 @@ from .models import InstaPost, DayRoute
 import json
 
 
-# Upon server reload, run functions to update the Django database
-# instascrape.main()
+# Upon server reload, run function to update the Django database
+instascrape.main()
 
 
 # View for main page
@@ -45,8 +45,8 @@ def generate_context():
             post_context.append(post.location_text)
             post_context.append(post.lat)
             post_context.append(post.lng)
-            post_context.append(post.pic_url)
-            post_context.append(post.thumb_url)
+            post_context.append(post.pic_file)
+            post_context.append(post.thumb_file)
             post_context.append(post.uploader_name)
             post_context.append(post.uploader_profile_url)
             posts.append(post_context)
