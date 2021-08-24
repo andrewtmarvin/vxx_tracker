@@ -4,8 +4,8 @@ from random import uniform
 from django.utils.timezone import make_aware
 from django.core.files import File
 from urllib.request import urlretrieve, urlcleanup
-import mimetypes # Detects mimetype
-import magic  # Uses magic numbers to detect file type, and does so much better than the built in mimetypes
+import mimetypes
+import magic
 
 from credentials import *
 
@@ -14,15 +14,19 @@ def main():
     L = instaloader.Instaloader()
     L.login(USERNAME, PASSWORD)
     profile = instaloader.Profile.from_username(L.context, USERNAME)
-    insta_check(profile)
-    # insta_tagged_check(profile)
+    # Check VXX profile
+    insta_posts = profile.get_posts()
+    insta_check(insta_posts)
+    # Check posts VXX profile tagged in
+    tagged_insta_posts = profile.get_tagged_posts()
+    insta_check(tagged_insta_posts)
 
 # Function to check for and download new Instagram posts
-def insta_check(profile):
+def insta_check(posts):
     x = 0
     y = 0
     z = 0
-    for post in profile.get_posts():
+    for post in posts:
         try:
             p = InstaPost.objects.get(post_id=post.mediaid)
             print('post ID: ' + str(post.mediaid) + ' already in database')
@@ -59,67 +63,12 @@ def insta_check(profile):
                     if location.raw['address']['country_code'] == 'vn':
                         y += 1
                         print("in " + location.raw['address']['country'], 'saving to database. x ' + str(y))
-                        update_database(post)
-                        newpostrecord = PostRecord()
-                        newpostrecord.post_id = post.mediaid
-                        newpostrecord.keep = True
-                        newpostrecord.save()
-                    else:
-                        z += 1
-                        print("outside of vietnam, database not updated. x " + str(z))
-                        print(location.raw['address']['country_code'])
-                        newpostrecord = PostRecord()
-                        newpostrecord.post_id = post.mediaid
-                        newpostrecord.keep = False
-                        newpostrecord.save()
-
-
-# Function to check for and download new tagged Instagram posts
-def insta_tagged_check(profile):
-    x = 0
-    y = 0
-    z = 0
-    for post in profile.get_tagged_posts():
-        try:
-            p = InstaPost.objects.get(post_id=post.mediaid)
-            print('post ID: ' + str(post.mediaid) + ' already in database')
-        except:
-            # if not in the database, check if in the records
-            try:
-                pr = PostRecord.objects.get(post_id=post.mediaid)
-                if pr.keep == False:
-                    print('post ID: ' + str(post.mediaid) + ' should not be kept')
-                else:
-                    print(
-                        'ERROR! Post flagged as should be kept, but not in the database! Deleting PostRecord ID=' + str(
-                            post.mediaid))
-                    pr.delete()
-                    print('Post record deleted. You should run instacrape again to save the post to the database!')
-            except:
-                # only stores posts in database which have a geolocation
-                if post.location == None:
-                    newpostrecord = PostRecord()
-                    newpostrecord.post_id = post.mediaid
-                    newpostrecord.keep = False
-                    newpostrecord.save()
-                    if post.caption:
-                        x += 1
-                        print('post "' + post.caption.rstrip()[:10] + '" does not have geolocation data. x ' + str(x))
-                else:
-                    # only stores posts if location is in Vietnam
-                    p = geopy.point.Point(post.location.lat, post.location.lng)
-                    geolocator = geopy.Nominatim(user_agent='macekid421')
-                    try:
-                        location = geolocator.reverse(p, timeout=15)
-                    except geopy.exc.GeocoderTimedOut as err:
-                        print("Error: " + str(err))
-
-                    if location.raw['address']['country_code'] == 'vn':
-                        y += 1
-                        print("in " + location.raw['address']['country'], 'saving to database. x ' + str(y))
-                        # json structure of tagged posts requires slight modification from regular posts
-                        post._node.update({'thumbnail_resources': {0: {'src': post._node['thumbnail_src']}}})
-
+                        
+                        # JSON structure of tagged posts requires slight modification from regular posts
+                        if not post._node['owner']['id'] == VXX_PROFILE_ID:
+                            print('this tagged post came from user ID: ' + post._node['owner']['id'])
+                            post._node.update({'thumbnail_resources': {0: {'src': post._node['thumbnail_src']}}})
+                        
                         update_database(post)
                         newpostrecord = PostRecord()
                         newpostrecord.post_id = post.mediaid
