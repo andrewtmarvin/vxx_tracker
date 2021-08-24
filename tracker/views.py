@@ -5,7 +5,7 @@ import json
 
 
 # Upon server reload, run function to update the Django database
-instascrape.main()
+# instascrape.main()
 
 
 # View for main page
@@ -45,13 +45,14 @@ def generate_context():
             post_context.append(post.location_text)
             post_context.append(post.lat)
             post_context.append(post.lng)
-            post_context.append(post.pic_file)
-            post_context.append(post.thumb_file)
+            post_context.append(post.pic_file.url)
+            post_context.append(post.thumb_file.url)
             post_context.append(post.uploader_name)
             post_context.append(post.uploader_profile_url)
             posts.append(post_context)
     except:
         pass
+    print(posts[0])
 
     # Routes context variables are used by the frontend to create the menu
     routes_2016 = []
