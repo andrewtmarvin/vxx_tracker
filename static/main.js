@@ -73,7 +73,7 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 	attribution: '',
 	maxZoom: 20,
 	minZoom: 6,
-	id: 'mapbox/streets-v11',
+	id: 'andrewtmarvin/cksqsezs4189q17qgpgzgbvjx',
 	accessToken: 'pk.eyJ1IjoiYW5kcmV3dG1hcnZpbiIsImEiOiJja3NrcmhqZ3kwOXljMnduMHVzc3JkeW5jIn0.Rgc7MKhBWYuRRXuavqrDZA'
 }).addTo(mymap);
 

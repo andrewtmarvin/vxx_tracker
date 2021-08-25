@@ -2,28 +2,11 @@ body {
     background-color: lightslategray;
     margin: 0px;
 }
-/*button:focus {*/
-/*    color:blue;*/
-/*}*/
 
 nav {
-    /*position: absolute;*/
-    /*top: 150px;*/
+
     z-index: 10000;
 }
-/*#app-title {*/
-/*position: absolute;*/
-/*    top:0px;*/
-/*    left:50%;*/
-/*    margin-left: -125px;*/
-/*    width: 250px;*/
-/*    z-index: 10000;*/
-/*    padding: 50px;*/
-/*    background-color: white;*/
-/*    border-radius: 10%;*/
-
-/*}*/
-
 .navbar-brand {
     padding: 0px!important;
 }
@@ -39,9 +22,11 @@ nav {
     height:100%;
     width:100vw;
 }
-
 .leaflet-top {
     margin-top: 125px;
+}
+.leaflet-right {
+    display: none;
 }
 
 .leaflet-marker-icon {
@@ -53,20 +38,16 @@ nav {
     border: none;
     box-shadow: none;
 }
-
 img, video {
     max-width: 50vw!important;
     overflow:auto!important;
 }
-
 .leaflet-popup-content {
     width: auto!important;
 }
-
 .popupImage {
     width: 500px;
 }
-
 .route-title {
     font-weight: bold;
     font-size: 1.2em;
@@ -74,7 +55,6 @@ img, video {
     text-transform: uppercase;
     white-space: nowrap;
 }
-
 .route-details {
     white-space: nowrap;
     display:inline-block;
@@ -98,9 +78,3 @@ iframe {
     max-width: 75vw !important;
     margin-top: 10px;
 }
-  /*phone section*/
-/*@media only screen and (max-width: 1000px) {*/
-/*    iframe {*/
-/*    max-height: 60vh !important;*/
-/*  }*/
-/*}*/
