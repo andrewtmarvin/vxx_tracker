@@ -3,60 +3,40 @@
 {% block extrahead %}
 <script src="{% static 'leaflet/gpx.min.js' %}"></script>
 {% endblock %}
-
 {% block content %}
-<!--Hook for Leaflet map-->
 <div id="mapid"></div>
-
-<!--Menu section-->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#"><img src="{% static 'mainlogo.png' %} " width=75 height=75/> Vòng Xe Xanh Adventure Tracker</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          2016
-        </a>
-        <div class="dropdown-menu" aria-labelledby="2016Dropdown">
-                {% for year, day, url, title, journal in routes_2016 %}
-                <a class="dropdown-item" data-toggle="collapse" data-target=".navbar-collapse.show" href="#" name="{{ url }}">Day: {{ day }}</a>
-                <script>
-                    window["route{{year}}{{day}}"] = "{{title}}";
-                    window["route{{year}}{{day}}-text"] = '{{journal|safe}}';
-                </script>
-                {% endfor %}
+<nav class="navbar">
+    <div class="logo-container"></div>
+    <h1>VXX Cycling Journeys</h1>
+    <ul class="routes">
+      <li class="route-year">
+        <a class="route-year-link" href="#">2016</a>
+        <div class="route-year-menu">
+            {% for year, day, url, title, journal in routes_2016 %}
+            <a class="route-menu-item" href="#" name="{{ url }}">Day: {{ day }}</a>
+            <script>
+                window["route{{year}}{{day}}"] = "{{title}}";
+                window["route{{year}}{{day}}-text"] = '{{journal|safe}}';
+            </script>
+            {% endfor %}
         </div>
       </li>
-        <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="2020Dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          2020
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            {% if routes_2020 %}
-                {% for year, day, url, title, journal in routes_2020 %}
-                <a class="dropdown-item" data-toggle="collapse" data-target=".navbar-collapse.show" href="#" name="{{ url }}">Day: {{ day }}</a>
-                <script>
-                    window["route{{year}}{{day}}"] = "{{title}}";
-                    window["route{{year}}{{day}}-text"] = '{{journal|safe}}';
-                </script>
-                {% endfor %}
-            {% else %}
-                Coming February, 2020!
-            {% endif %}
-        </div>
-      </li>
-
-    </ul>
-  </div>
+      <li class="route-year">
+        <a class="route-year-link" href="#">2020</a>
+        <div class="route-year-menu">
+          {% for year, day, url, title, journal in routes_2020 %}
+          <a class="route-menu-item" href="#" name="{{ url }}">Day: {{ day }}</a>
+          <script>
+              window["route{{year}}{{day}}"] = "{{title}}";
+              window["route{{year}}{{day}}-text"] = '{{journal|safe}}';
+          </script>
+          {% endfor %}
+      </div>
+    </li>
+  </ul>
 </nav>
-<!--End menu section-->
 <script>
-    // Accepting json file from backend. In future projects, I will do this with an Ajax call.
     var json_stuff = {{ posts|safe }}
 </script>
-
 <script src="{% static 'main.js' %}"></script>
 {% endblock %}

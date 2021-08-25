@@ -1,25 +1,44 @@
 body {
     background-color: lightslategray;
     margin: 0px;
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: 400;
 }
-
-nav {
-
+.navbar {
     z-index: 10000;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 80vw;
+    background-color: white;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;;
 }
-.navbar-brand {
-    padding: 0px!important;
+.logo-container {
+    width: 20vw;
+    height: 20vw;
+    display: block;
+    overflow: hidden;
+    align-self: start;
+    background-image: url(mainlogo.png);
+    background-position: 50% 50%;
+    background-size: 135%;
 }
-.dropdown-menu {
-    overflow: auto;
-    max-height:50vh;
+h1 {
+    text-transform: uppercase;
+    font-family: 'Noto Serif', serif;
+    font-weight: 700;
+    font-size: 140%;
+    letter-spacing: 1px;
+    text-align: center;
+    width: 100%;
 }
-.navbar-toggler {
-    float:right!important;
-}
+
 #mapid {
     position: absolute;
-    height:100%;
+    height:100vh;
     width:100vw;
 }
 .leaflet-top {
@@ -28,7 +47,6 @@ nav {
 .leaflet-right {
     display: none;
 }
-
 .leaflet-marker-icon {
     border-radius: 10%;
     border: 2px white solid;
@@ -60,7 +78,6 @@ img, video {
     display:inline-block;
     padding:0px 15px 15px 15px;
     margin: 0px!important;
-    list-style-image: url(http://127.0.0.1:8000/static/rest.png);
 }
 details {
     text-align: center;
