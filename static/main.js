@@ -79,64 +79,35 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 
 // Cycling route section
 var mapgps;
-$('.dropdown-item').click(function () {
-	let s = this.name.substring(9).replace('/', '').replace('/', '');
-	let day = this.innerHTML.slice(5);
-	if ($(this).css('background-color') !== 'rgb(211, 211, 211)') {
-		$(this).css('background-color', 'lightgray');
-		$.ajax({
-			url: this.name,
-			success: function (result) {
-				mapgps = result;
-				if (mapgps.startsWith('<?xml version="1.0" encoding="UTF-8"?>')) {
-					new L.GPX(mapgps, {
-						async: true,
-						marker_options: {
-							startIconUrl: '/static/leaflet/images/start.svg',
-							endIconUrl: '/static/leaflet/images/finish-line2.svg',
-							shadowUrl: '/static/leaflet/images/pin-shadow.png',
-							className: 'map-pin'
-						},
-						polyline_options: {
-							color: 'green',
-							weight: 4,
-							renderer: myRenderer
-						}
-					})
-						// attaches popup to route so can be opened and closed by clicking on
-						.on('loaded', function (e) {
-							// console.log(e.target._info); //prints everything we can call from the gpx file
-							routePopCont =
-								"<p class='route-title'>" +
-								window['route' + e.target.get_start_time().getFullYear() + day] +
-								"</p><p class='route-details'>" +
-								e.target.get_start_time().toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' }) +
-								' - ' +
-								e.target
-									.get_end_time()
-									.toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' })
-									.slice(12) +
-								'<br>Moving time: ' +
-								e.target.get_duration_string(e.target.get_moving_time()) +
-								'<br>Average speed: ' +
-								e.target.get_total_speed().toFixed(2) +
-								' km/h<br>Distance: ' +
-								(e.target.get_distance() / 1000).toFixed(2) +
-								' km<br>Elevation gain: ' +
-								Math.round(e.target.get_elevation_gain()) +
-								'm</p><details>' +
-								'<summary>Day ' +
-								day +
-								' Journal</summary>' +
-								window['route' + e.target.get_start_time().getFullYear() + day + '-text'] +
-								'</details>';
-							e.target.bindPopup(routePopCont);
-							mymap.fitBounds(e.target.getBounds());
-							window['menuId' + s] = e.target.getBounds();
+document.querySelectorAll('.route-menu-item').forEach((element) => {
+	element.addEventListener('click', (e) => {
+		const link = e.target;
+		let s = link.name.substring(9).replace('/', '').replace('/', '');
+		let day = link.innerHTML.slice(5);
+		if (link.style.backgroundColor !== 'rgb(211, 211, 211)') {
+			link.style.backgroundColor = 'rgb(211, 211, 211)';
+			fetch(link.name)
+				.then((response) => response.text())
+				.then((text) => {
+					mapgps = text;
+					if (mapgps.startsWith('<?xml version="1.0" encoding="UTF-8"?>')) {
+						new L.GPX(mapgps, {
+							async: true,
+							marker_options: {
+								startIconUrl: '/static/leaflet/images/start.svg',
+								endIconUrl: '/static/leaflet/images/finish-line2.svg',
+								shadowUrl: '/static/leaflet/images/pin-shadow.png',
+								className: 'map-pin'
+							},
+							polyline_options: {
+								color: 'green',
+								weight: 4,
+								renderer: myRenderer
+							}
 						})
-						// This attached a popup to the endpoint when the route line is drawn
-						.on('addpoint', function (e) {
-							if (e.point_type === 'end') {
+							// attaches popup to route so can be opened and closed by clicking on
+							.on('loaded', function (e) {
+								// console.log(e.target._info); //prints everything we can call from the gpx file
 								routePopCont =
 									"<p class='route-title'>" +
 									window['route' + e.target.get_start_time().getFullYear() + day] +
@@ -163,53 +134,86 @@ $('.dropdown-item').click(function () {
 									' Journal</summary>' +
 									window['route' + e.target.get_start_time().getFullYear() + day + '-text'] +
 									'</details>';
-								mymap.openPopup(routePopCont, e.point['_latlng'], {
-									direction: 'bottom'
-								});
-							}
+								e.target.bindPopup(routePopCont);
+								mymap.fitBounds(e.target.getBounds());
+								window['menuId' + s] = e.target.getBounds();
+							})
+							// This attached a popup to the endpoint when the route line is drawn
+							.on('addpoint', function (e) {
+								if (e.point_type === 'end') {
+									routePopCont =
+										"<p class='route-title'>" +
+										window['route' + e.target.get_start_time().getFullYear() + day] +
+										"</p><p class='route-details'>" +
+										e.target
+											.get_start_time()
+											.toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' }) +
+										' - ' +
+										e.target
+											.get_end_time()
+											.toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' })
+											.slice(12) +
+										'<br>Moving time: ' +
+										e.target.get_duration_string(e.target.get_moving_time()) +
+										'<br>Average speed: ' +
+										e.target.get_total_speed().toFixed(2) +
+										' km/h<br>Distance: ' +
+										(e.target.get_distance() / 1000).toFixed(2) +
+										' km<br>Elevation gain: ' +
+										Math.round(e.target.get_elevation_gain()) +
+										'm</p><details>' +
+										'<summary>Day ' +
+										day +
+										' Journal</summary>' +
+										window['route' + e.target.get_start_time().getFullYear() + day + '-text'] +
+										'</details>';
+									mymap.openPopup(routePopCont, e.point['_latlng'], {
+										direction: 'bottom'
+									});
+								}
+							})
+							.addTo(mymap);
+					} else {
+						// if the day is a rest day and doesn't have a gpx file, we create a marker label it a rest day
+						mapgps = JSON.parse(mapgps);
+						L.marker([ mapgps[0], mapgps[1] ], {
+							icon: L.icon({
+								iconUrl: '/static/coffee.gif',
+								iconSize: [ 80 ],
+								className: 'map-pin rest-day',
+								popupAnchor: [ 0, 0 ]
+							})
 						})
-						.addTo(mymap);
-				} else {
-					// if the day is a rest day and doesn't have a gpx file, we create a marker label it a rest day
-					mapgps = JSON.parse(mapgps);
-					L.marker([ mapgps[0], mapgps[1] ], {
-						icon: L.icon({
-							iconUrl: '/static/coffee.gif',
-							iconSize: [ 80 ],
-							className: 'map-pin rest-day',
-							popupAnchor: [ 0, 0 ]
-						})
-					})
-						.bindPopup(
-							"<p class='route-title'>" +
-								mapgps[2] +
-								'</p><details><summary>Day ' +
-								mapgps[4] +
-								' Journal</summary>' +
-								mapgps[3] +
-								'</details>',
-							{}
-						)
-						.openPopup()
-						.addTo(mymap)
-						.openPopup();
+							.bindPopup(
+								"<p class='route-title'>" +
+									mapgps[2] +
+									'</p><details><summary>Day ' +
+									mapgps[4] +
+									' Journal</summary>' +
+									mapgps[3] +
+									'</details>',
+								{}
+							)
+							.openPopup()
+							.addTo(mymap)
+							.openPopup();
 
-					window['menuId' + s] = [ mapgps[0], mapgps[1] ]; // keeps info in memory so clicking on the day again still re-centers map on marker without reloading gpx file
-					mymap.panTo([ mapgps[0], mapgps[1] ], {
-						animate: true
-					}); //pan to the rest day location
-				}
-			},
-			error: function () {
-				alert('Server error'); // Displayed on frontend when loading a route if server doesn't respond
+						window['menuId' + s] = [ mapgps[0], mapgps[1] ]; // keeps info in memory so clicking on the day again still re-centers map on marker without reloading gpx file
+						mymap.panTo([ mapgps[0], mapgps[1] ], {
+							animate: true
+						}); //pan to the rest day location
+					}
+				})
+				.catch((err) => {
+					alert('Server error');
+				}); // Displayed on frontend when loading a route if server doesn't respond});
+		} else {
+			// This recenters the user on a previously loaded route if they click on the same route twice in the menu
+			try {
+				mymap.fitBounds(window['menuId' + s]);
+			} catch (err) {
+				//
 			}
-		});
-	} else {
-		// This recenters the user on a previously loaded route if they click on the same route twice in the menu
-		try {
-			mymap.fitBounds(window['menuId' + s]);
-		} catch (err) {
-			mymap.panTo(window['menuId' + s]);
 		}
-	}
+	});
 });

@@ -35,7 +35,25 @@ h1 {
     text-align: center;
     width: 100%;
 }
-
+.routes {
+    display: flex;
+    flex-flow: row nowrap;
+    margin: 0;
+    padding: 0;
+}
+.route-year {
+    list-style-type: none;
+    flex: 1 100%;
+}
+.route-year-link {
+    text-decoration: none;
+}
+.route-year-menu {
+    /* display: none; */
+}
+.visible {
+    display: block;
+}
 #mapid {
     position: absolute;
     height:100vh;
@@ -87,6 +105,7 @@ summary {
     font-weight: bold;
     border: 1px black solid;
     width: 100px;
+    cursor: pointer;
 }
 details summary::-webkit-details-marker {
   display:none;
