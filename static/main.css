@@ -126,6 +126,9 @@ header small {
     overflow-x: clip;
     text-overflow: ellipsis;
 }
+.route-menu-item:hover {
+    text-decoration: underline;
+}
 .map-options {
     position: absolute;
     bottom: 0;
@@ -135,6 +138,9 @@ header small {
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
+}
+.checkbox-group * {
+    cursor: pointer;
 }
 .social {
     position: absolute;

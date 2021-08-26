@@ -105,7 +105,7 @@ document.querySelectorAll('.route-menu-item').forEach((element) => {
 					mapgps = text;
 					if (mapgps.startsWith('<?xml version="1.0" encoding="UTF-8"?>')) {
 						let polyLineColor = 'black';
-						s.slice(0, 4) == '2016' ? (polyLineColor = '#56b947') : (polyLineColor = '#ab1e23');
+						s.slice(0, 4) == '2016' ? (polyLineColor = 'goldenrod') : (polyLineColor = '#56b947');
 						new L.GPX(mapgps, {
 							async: true,
 							marker_options: {
