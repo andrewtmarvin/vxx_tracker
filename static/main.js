@@ -27,13 +27,13 @@ for (i = 0; i < json_length; i++) {
 				json_stuff[i][6] +
 				'" alt="' +
 				json_stuff[i][2] +
-				'"><br><p>' +
-				json_stuff[i][1].slice(0, 10) +
-				'<br>' +
+				'"><br/><p>' +
+				new Date(json_stuff[i][1].slice(0, 10)).toDateString() +
+				'<br/>' +
 				json_stuff[i][3] +
-				'<br>' +
+				'<br/>' +
 				json_stuff[i][2] +
-				'<br>Posted by <a href="' +
+				'<br/>Posted by <a href="' +
 				json_stuff[i][9] +
 				'">' +
 				json_stuff[i][8] +
@@ -44,13 +44,13 @@ for (i = 0; i < json_length; i++) {
 				json_stuff[i][6] +
 				'" type="video/mp4"><source src="' +
 				json_stuff[i][6] +
-				'" type="video/ogg">Your browser does not support the video tag.</video><br><p>' +
+				'" type="video/ogg">Your browser does not support the video tag.</video><br/><p>' +
 				json_stuff[i][1].slice(0, 10) +
-				'<br>' +
+				'<br/>' +
 				json_stuff[i][3] +
-				'<br>' +
+				'<br/>' +
 				json_stuff[i][2] +
-				'<br>Posted by <a href="' +
+				'<br/>Posted by <a href="' +
 				json_stuff[i][9] +
 				'">' +
 				json_stuff[i][8] +
@@ -135,21 +135,29 @@ document.querySelectorAll('.route-menu-item').forEach((element) => {
 										"<p class='route-title'>" +
 										window['route' + e.target.get_start_time().getFullYear() + day] +
 										"</p><p class='route-details'>" +
+										new Date(
+											e.target
+												.get_start_time()
+												.toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' })
+												.split(',')[0]
+										).toDateString() +
+										'<br/>' +
 										e.target
 											.get_start_time()
-											.toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' }) +
+											.toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' })
+											.split(',')[1] +
 										' &rarr; ' +
 										e.target
 											.get_end_time()
 											.toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' })
-											.slice(12) +
-										'<br>Moving time: ' +
+											.split(',')[1] +
+										'<br/>Moving time: ' +
 										e.target.get_duration_string(e.target.get_moving_time()) +
-										'<br>Average speed: ' +
+										'<br/>Average speed: ' +
 										e.target.get_total_speed().toFixed(2) +
-										' km/h<br>Distance: ' +
+										' km/h<br/>Distance: ' +
 										(e.target.get_distance() / 1000).toFixed(2) +
-										' km<br>Elevation gain: ' +
+										' km<br/>Elevation gain: ' +
 										Math.round(e.target.get_elevation_gain()) +
 										'm</p><details>' +
 										'<summary>Day ' +
@@ -157,7 +165,6 @@ document.querySelectorAll('.route-menu-item').forEach((element) => {
 										' Journal</summary>' +
 										window['route' + e.target.get_start_time().getFullYear() + day + '-text'] +
 										'</details>';
-									console.log(this.options.routePopCont);
 									mymap.openPopup(this.options.routePopCont, e.point['_latlng'], {
 										direction: 'bottom'
 									});
