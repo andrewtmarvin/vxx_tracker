@@ -8,6 +8,12 @@ mymap.setMaxBounds(bounds);
 // setting the renderer, used for the gps route line later
 var myRenderer = L.canvas({ padding: 0.2, tolerance: 20 });
 
+// VXX journey dates
+const vxx2016Start = new Date('10/11/2016');
+const vxx2016End = new Date('11/28/2016');
+const vxx2020Start = new Date('5/10/2020');
+const vxx2020End = new Date('5/31/2020');
+
 // creating the Instagram markers on the map
 for (i = 0; i < json_length; i++) {
 	if (json_stuff[i][2] == null) {
@@ -53,13 +59,19 @@ for (i = 0; i < json_length; i++) {
 	} catch (e) {
 		console.log(e);
 	}
+	// Determine if post is from a specific VXX journey
+	const postDate = new Date(json_stuff[i][1]);
+	let dateClass = 'not-journey';
+	if (postDate >= vxx2016Start && postDate <= vxx2016End) dateClass = '2016-journey';
+	if (postDate >= vxx2020Start && postDate <= vxx2020End) dateClass = '2020-journey';
 
 	// generating marker icons
 	L.marker([ json_stuff[i][4], json_stuff[i][5] ], {
 		icon: L.icon({
 			iconUrl: json_stuff[i][7],
 			iconSize: [ 50 ],
-			popupAnchor: [ 0, 0 ]
+			popupAnchor: [ 0, 0 ],
+			className: dateClass
 		}),
 		riseOnHover: true
 	})
