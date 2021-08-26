@@ -118,45 +118,20 @@ document.querySelectorAll('.route-menu-item').forEach((element) => {
 								color: polyLineColor,
 								weight: 4,
 								renderer: myRenderer
-							}
+							},
+							routePopCont: ''
 						})
 							// attaches popup to route so can be opened and closed by clicking on
 							.on('loaded', function (e) {
-								// console.log(e.target._info); //prints everything we can call from the gpx file
-								routePopCont =
-									"<p class='route-title'>" +
-									window['route' + e.target.get_start_time().getFullYear() + day] +
-									"</p><p class='route-details'>" +
-									e.target
-										.get_start_time()
-										.toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' }) +
-									' TEST ' +
-									e.target
-										.get_end_time()
-										.toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' })
-										.slice(12) +
-									'<br>Moving time: ' +
-									e.target.get_duration_string(e.target.get_moving_time()) +
-									'<br>Average speed: ' +
-									e.target.get_total_speed().toFixed(2) +
-									' km/h<br>Distance: ' +
-									(e.target.get_distance() / 1000).toFixed(2) +
-									' km<br>Elevation gain: ' +
-									Math.round(e.target.get_elevation_gain()) +
-									'm</p><details>' +
-									'<summary>Day ' +
-									day +
-									' Journal</summary>' +
-									window['route' + e.target.get_start_time().getFullYear() + day + '-text'] +
-									'</details>';
-								e.target.bindPopup(routePopCont);
+								e.target.bindPopup(this.options.routePopCont);
 								mymap.fitBounds(e.target.getBounds());
 								window['menuId' + s] = e.target.getBounds();
 							})
 							// This attached a popup to the endpoint when the route line is drawn
 							.on('addpoint', function (e) {
 								if (e.point_type === 'end') {
-									routePopCont =
+									// console.log(e.target._info); //prints everything we can call from the gpx file
+									this.options.routePopCont =
 										"<p class='route-title'>" +
 										window['route' + e.target.get_start_time().getFullYear() + day] +
 										"</p><p class='route-details'>" +
@@ -182,7 +157,8 @@ document.querySelectorAll('.route-menu-item').forEach((element) => {
 										' Journal</summary>' +
 										window['route' + e.target.get_start_time().getFullYear() + day + '-text'] +
 										'</details>';
-									mymap.openPopup(routePopCont, e.point['_latlng'], {
+									console.log(this.options.routePopCont);
+									mymap.openPopup(this.options.routePopCont, e.point['_latlng'], {
 										direction: 'bottom'
 									});
 								}
