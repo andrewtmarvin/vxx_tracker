@@ -217,3 +217,15 @@ document.querySelectorAll('.route-menu-item').forEach((element) => {
 		}
 	});
 });
+const routeYearLinks = document.querySelectorAll('.route-year-link');
+const routeYearMenus = document.querySelectorAll('.route-year-menu');
+routeYearLinks.forEach((yearLink) => {
+	yearLink.addEventListener('click', (e) => {
+		e.preventDefault();
+		routeYearLinks.forEach((link) => link.classList.remove('route-year-link-active'));
+		e.target.classList.add('route-year-link-active');
+		routeYearMenus.forEach((menu) => menu.classList.remove('route-year-menu-visible'));
+		console.dir(e.target);
+		e.target.nextElementSibling.classList.add('route-year-menu-visible');
+	});
+});

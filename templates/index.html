@@ -7,12 +7,25 @@
 <div id="mapid"></div>
 <nav class="navbar">
     <div class="logo-container"></div>
-    <h1>VXX Cycling Journeys</h1>
-    <ul class="routes">
-      <li class="route-year">
-        <a class="route-year-link" href="#">2016&nbsp;/&nbsp;</a>
-        <div class="route-year-menu">
-            {% for year, day, url, title, journal in routes_2016 %}
+    <div class="route-section">
+      <h1>VXX Cycling Journeys</h1>
+      <ul class="routes">
+        <li class="route-year">
+          <a class="route-year-link route-year-link-active" href="#">2016</a>
+          <div class="route-year-menu route-year-menu-visible">
+              {% for year, day, url, title, journal in routes_2016 %}
+              <a class="route-menu-item" href="#" name="{{ url }}">Day: {{ day }}</a>
+              <script>
+                  window["route{{year}}{{day}}"] = "{{title}}";
+                  window["route{{year}}{{day}}-text"] = '{{journal|safe}}';
+              </script>
+              {% endfor %}
+          </div>
+        </li>
+        <li class="route-year">
+          <a class="route-year-link" href="#">2020</a>
+          <div class="route-year-menu">
+            {% for year, day, url, title, journal in routes_2020 %}
             <a class="route-menu-item" href="#" name="{{ url }}">Day: {{ day }}</a>
             <script>
                 window["route{{year}}{{day}}"] = "{{title}}";
@@ -21,19 +34,19 @@
             {% endfor %}
         </div>
       </li>
-      <li class="route-year">
-        <a class="route-year-link" href="#">2020</a>
-        <div class="route-year-menu">
-          {% for year, day, url, title, journal in routes_2020 %}
-          <a class="route-menu-item" href="#" name="{{ url }}">Day: {{ day }}</a>
-          <script>
-              window["route{{year}}{{day}}"] = "{{title}}";
-              window["route{{year}}{{day}}-text"] = '{{journal|safe}}';
-          </script>
-          {% endfor %}
-      </div>
-    </li>
-  </ul>
+    </ul>
+  </div>
+  <div class="map-options">
+    <p>Only show posts from:</p>
+    <div class="checkbox-group">
+      <input type="checkbox" name="2016-checkbox" id="2016-checkbox">
+      <label for="2016-checkbox">2016 journey</label>
+    </div>
+    <div class="checkbox-group">
+      <input type="checkbox" name="2020-checkbox" id="2020-checkbox">
+      <label for="2020-checkbox">2020 journey</label>
+    </div>
+  </div>
 </nav>
 <script>
     var json_stuff = {{ posts|safe }}

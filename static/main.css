@@ -4,6 +4,9 @@ body {
     font-family: 'Noto Sans', sans-serif;
     font-weight: 400;
 }
+a {
+    -webkit-tap-highlight-color:  rgba(255, 255, 255, 0); 
+}
 .navbar {
     z-index: 10000;
     position: absolute;
@@ -34,6 +37,10 @@ h1 {
     letter-spacing: 1px;
     text-align: center;
     width: 100%;
+    padding-bottom: 20px;
+}
+.route-section {
+    padding: 20px 10px;
 }
 .routes {
     display: flex;
@@ -43,16 +50,41 @@ h1 {
 }
 .route-year {
     list-style-type: none;
-    flex: 1 100%;
 }
 .route-year-link {
     text-decoration: none;
+    padding: 10px;
+}
+.route-year-link-active {
+    background-color: rgb(241, 241, 241);
 }
 .route-year-menu {
-    /* display: none; */
+    display: none;
+    overflow-y: scroll;
+    flex-flow: column nowrap;
+    background-color: rgb(241, 241, 241);
+    height: calc(100vh - 20vw - 110px - 161px);;
+    position: absolute;
+    left: 10px;
+    right: 10px;
 }
-.visible {
-    display: block;
+.route-year-menu-visible {
+    display: flex;
+}
+.route-menu-item {
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+    padding-bottom: 0;
+}
+.map-options {
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+    right: 10px;
+    height: 110px;
+    display: flex;
+    flex-flow: column nowrap;
 }
 #mapid {
     position: absolute;
