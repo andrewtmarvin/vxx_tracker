@@ -93,9 +93,10 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 var mapgps;
 document.querySelectorAll('.route-menu-item').forEach((element) => {
 	element.addEventListener('click', (e) => {
+		e.preventDefault();
 		const link = e.target;
 		let s = link.name.substring(9).replace('/', '').replace('/', '');
-		let day = link.innerHTML.slice(5);
+		let day = link.dataset.day;
 		if (link.style.backgroundColor !== 'rgb(211, 211, 211)') {
 			link.style.backgroundColor = 'rgb(211, 211, 211)';
 			fetch(link.name)
@@ -103,11 +104,7 @@ document.querySelectorAll('.route-menu-item').forEach((element) => {
 				.then((text) => {
 					mapgps = text;
 					if (mapgps.startsWith('<?xml version="1.0" encoding="UTF-8"?>')) {
-						console.log(e.target);
-						console.log(s);
-						console.log(link);
-						console.log(day);
-						let polyLineColor = 'green';
+						let polyLineColor = 'black';
 						s.slice(0, 4) == '2016' ? (polyLineColor = '#56b947') : (polyLineColor = '#ab1e23');
 						new L.GPX(mapgps, {
 							async: true,
@@ -133,7 +130,7 @@ document.querySelectorAll('.route-menu-item').forEach((element) => {
 									e.target
 										.get_start_time()
 										.toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' }) +
-									' - ' +
+									' TEST ' +
 									e.target
 										.get_end_time()
 										.toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' })
@@ -166,7 +163,7 @@ document.querySelectorAll('.route-menu-item').forEach((element) => {
 										e.target
 											.get_start_time()
 											.toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' }) +
-										' - ' +
+										' &rarr; ' +
 										e.target
 											.get_end_time()
 											.toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' })
@@ -245,7 +242,6 @@ routeYearLinks.forEach((yearLink) => {
 		routeYearLinks.forEach((link) => link.classList.remove('route-year-link-active'));
 		e.target.classList.add('route-year-link-active');
 		routeYearMenus.forEach((menu) => menu.classList.remove('route-year-menu-visible'));
-		console.dir(e.target);
 		e.target.nextElementSibling.classList.add('route-year-menu-visible');
 	});
 });

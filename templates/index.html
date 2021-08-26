@@ -14,7 +14,7 @@
           <a class="route-year-link route-year-link-active" href="#">2016</a>
           <div class="route-year-menu route-year-menu-visible">
               {% for year, day, url, title, journal in routes_2016 %}
-              <a class="route-menu-item" href="#" name="{{ url }}">Day: {{ day }}</a>
+              <a class="route-menu-item" href="#" data-day="{{day}}" name="{{ url }}">{{title}}</a>
               <script>
                   window["route{{year}}{{day}}"] = "{{title}}";
                   window["route{{year}}{{day}}-text"] = '{{journal|safe}}';
@@ -26,7 +26,7 @@
           <a class="route-year-link" href="#">2020</a>
           <div class="route-year-menu">
             {% for year, day, url, title, journal in routes_2020 %}
-            <a class="route-menu-item" href="#" name="{{ url }}">Day: {{ day }}</a>
+            <a class="route-menu-item" href="#" data-day="{{day}}" name="{{ url }}">{{title}}</a>
             <script>
                 window["route{{year}}{{day}}"] = "{{title}}";
                 window["route{{year}}{{day}}-text"] = '{{journal|safe}}';

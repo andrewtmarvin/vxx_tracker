@@ -57,6 +57,7 @@ h1 {
 }
 .route-year-link-active {
     background-color: rgb(241, 241, 241);
+    border-radius: 5px 5px 0 0 ;
 }
 .route-year-menu {
     display: none;
@@ -67,6 +68,19 @@ h1 {
     position: absolute;
     left: 10px;
     right: 10px;
+    direction: rtl;
+    border-radius: 5px;
+}
+.route-year-menu::-webkit-scrollbar
+{
+	width: 6px;
+	background-color: rgb(241, 241, 241);
+    border-radius: 5px 0 0 5px;
+}
+.route-year-menu::-webkit-scrollbar-thumb
+{
+    background-color: lightgray;
+    border-radius: 5px;
 }
 .route-year-menu-visible {
     display: flex;
@@ -76,6 +90,11 @@ h1 {
     color: black;
     padding: 10px;
     padding-bottom: 0;
+    width: calc(100% - 20px);
+    white-space: nowrap;
+    direction: ltr;
+    overflow-x: clip;
+    text-overflow: ellipsis;
 }
 .map-options {
     position: absolute;
