@@ -3,7 +3,7 @@
 const json_length = json_stuff.length;
 // setting up the Leaflet map
 var mymap = L.map('mapid').setView([ 21.027763, 105.83416 ], 8);
-bounds = L.latLngBounds(L.latLng(26.693407, 97.321159), L.latLng(4.648797, 121.418566));
+bounds = L.latLngBounds(L.latLng(26.232144, 95.650739), L.latLng(4.034532, 119.481904));
 mymap.setMaxBounds(bounds);
 // setting the renderer, used for the gps route line later
 var myRenderer = L.canvas({ padding: 0.2, tolerance: 20 });
@@ -103,6 +103,12 @@ document.querySelectorAll('.route-menu-item').forEach((element) => {
 				.then((text) => {
 					mapgps = text;
 					if (mapgps.startsWith('<?xml version="1.0" encoding="UTF-8"?>')) {
+						console.log(e.target);
+						console.log(s);
+						console.log(link);
+						console.log(day);
+						let polyLineColor = 'green';
+						s.slice(0, 4) == '2016' ? (polyLineColor = '#56b947') : (polyLineColor = '#ab1e23');
 						new L.GPX(mapgps, {
 							async: true,
 							marker_options: {
@@ -112,7 +118,7 @@ document.querySelectorAll('.route-menu-item').forEach((element) => {
 								className: 'map-pin'
 							},
 							polyline_options: {
-								color: 'green',
+								color: polyLineColor,
 								weight: 4,
 								renderer: myRenderer
 							}
