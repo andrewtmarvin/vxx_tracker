@@ -62,8 +62,8 @@ for (i = 0; i < json_length; i++) {
 	// Determine if post is from a specific VXX journey
 	const postDate = new Date(json_stuff[i][1]);
 	let dateClass = 'not-journey';
-	if (postDate >= vxx2016Start && postDate <= vxx2016End) dateClass = '2016-journey';
-	if (postDate >= vxx2020Start && postDate <= vxx2020End) dateClass = '2020-journey';
+	if (postDate >= vxx2016Start && postDate <= vxx2016End) dateClass = 'journey-2016';
+	if (postDate >= vxx2020Start && postDate <= vxx2020End) dateClass = 'journey-2020';
 
 	// generating marker icons
 	L.marker([ json_stuff[i][4], json_stuff[i][5] ], {
@@ -229,6 +229,8 @@ document.querySelectorAll('.route-menu-item').forEach((element) => {
 		}
 	});
 });
+
+// Route Menu Section
 const routeYearLinks = document.querySelectorAll('.route-year-link');
 const routeYearMenus = document.querySelectorAll('.route-year-menu');
 routeYearLinks.forEach((yearLink) => {
@@ -241,3 +243,35 @@ routeYearLinks.forEach((yearLink) => {
 		e.target.nextElementSibling.classList.add('route-year-menu-visible');
 	});
 });
+
+// Show Posts By VXX Journey Section
+const notJourney = document.querySelectorAll('.not-journey');
+const Journey2016 = document.querySelectorAll('.journey-2016');
+const Journey2020 = document.querySelectorAll('.journey-2020');
+const checkbox2016 = document.querySelector('#checkbox-2016');
+const checkbox2020 = document.querySelector('#checkbox-2020');
+const displayPostsByYear = () => {
+	const hide = (posts) => {
+		for (post of posts) {
+			post.classList.add('hidden-post');
+		}
+	};
+	const show = (posts) => {
+		for (post of posts) {
+			post.classList.remove('hidden-post');
+		}
+	};
+	if (!checkbox2016.checked && !checkbox2020.checked) {
+		show(notJourney);
+		show(Journey2016);
+		show(Journey2020);
+	}
+	if (checkbox2016.checked || checkbox2020.checked) {
+		hide(notJourney);
+		checkbox2016.checked ? show(Journey2016) : hide(Journey2016);
+		checkbox2020.checked ? show(Journey2020) : hide(Journey2020);
+	}
+};
+document
+	.querySelectorAll('.checkbox-group input')
+	.forEach((input) => input.addEventListener('click', displayPostsByYear));

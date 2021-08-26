@@ -86,6 +86,9 @@ h1 {
     display: flex;
     flex-flow: column nowrap;
 }
+.leaflet-pane img.hidden-post {
+    display: none;
+}
 #mapid {
     position: absolute;
     height:100vh;
