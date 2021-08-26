@@ -252,6 +252,7 @@ const Journey2016 = document.querySelectorAll('.journey-2016');
 const Journey2020 = document.querySelectorAll('.journey-2020');
 const checkbox2016 = document.querySelector('#checkbox-2016');
 const checkbox2020 = document.querySelector('#checkbox-2020');
+const checkboxOthers = document.querySelector('#checkbox-others');
 const displayPostsByYear = () => {
 	const hide = (posts) => {
 		for (post of posts) {
@@ -263,15 +264,14 @@ const displayPostsByYear = () => {
 			post.classList.remove('hidden-post');
 		}
 	};
-	if (!checkbox2016.checked && !checkbox2020.checked) {
+	if (!checkbox2016.checked && !checkbox2020.checked && !checkboxOthers.checked) {
 		show(notJourney);
 		show(Journey2016);
 		show(Journey2020);
-	}
-	if (checkbox2016.checked || checkbox2020.checked) {
-		hide(notJourney);
+	} else {
 		checkbox2016.checked ? show(Journey2016) : hide(Journey2016);
 		checkbox2020.checked ? show(Journey2020) : hide(Journey2020);
+		checkboxOthers.checked ? show(notJourney) : hide(notJourney);
 	}
 };
 document

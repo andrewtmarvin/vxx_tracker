@@ -4,27 +4,20 @@
 <script src="{% static 'leaflet/gpx.min.js' %}"></script>
 {% endblock %}
 {% block content %}
+<header>
+  <h1>Vòng Xe Xanh</h1>
+  <p>vegan bicycle journeys through Vietnam</p>
+  <small>© 2021 Andrew Marvin</small>
+</header>
 <div id="mapid"></div>
 <nav class="navbar">
     <div class="logo-container"></div>
     <div class="route-section">
-      <h1>VXX Cycling Journeys</h1>
+      <h2>Show Day Route</h2>
       <ul class="routes">
         <li class="route-year">
-          <a class="route-year-link route-year-link-active" href="#">2016</a>
+          <a class="route-year-link route-year-link-active" href="#">2020</a>
           <div class="route-year-menu route-year-menu-visible">
-              {% for year, day, url, title, journal in routes_2016 %}
-              <a class="route-menu-item" href="#" data-day="{{day}}" name="{{ url }}">{{title}}</a>
-              <script>
-                  window["route{{year}}{{day}}"] = "{{title}}";
-                  window["route{{year}}{{day}}-text"] = '{{journal|safe}}';
-              </script>
-              {% endfor %}
-          </div>
-        </li>
-        <li class="route-year">
-          <a class="route-year-link" href="#">2020</a>
-          <div class="route-year-menu">
             {% for year, day, url, title, journal in routes_2020 %}
             <a class="route-menu-item" href="#" data-day="{{day}}" name="{{ url }}">{{title}}</a>
             <script>
@@ -34,18 +27,38 @@
             {% endfor %}
         </div>
       </li>
+        <li class="route-year">
+          <a class="route-year-link" href="#">2016</a>
+          <div class="route-year-menu">
+              {% for year, day, url, title, journal in routes_2016 %}
+              <a class="route-menu-item" href="#" data-day="{{day}}" name="{{ url }}">{{title}}</a>
+              <script>
+                  window["route{{year}}{{day}}"] = "{{title}}";
+                  window["route{{year}}{{day}}-text"] = '{{journal|safe}}';
+              </script>
+              {% endfor %}
+          </div>
+        </li>
     </ul>
   </div>
   <div class="map-options">
-    <p>Only show posts from:</p>
-    <div class="checkbox-group">
-      <input type="checkbox" name="checkbox-2016" id="checkbox-2016">
-      <label for="checkbox-2016">2016 journey</label>
-    </div>
+    <h2>Show Journey Posts</h2>
     <div class="checkbox-group">
       <input type="checkbox" name="checkbox-2020" id="checkbox-2020">
-      <label for="checkbox-2020">2020 journey</label>
+      <label for="checkbox-2020">2020</label>
     </div>
+    <div class="checkbox-group">
+      <input type="checkbox" name="checkbox-2016" id="checkbox-2016">
+      <label for="checkbox-2016">2016</label>
+    </div>
+    <div class="checkbox-group">
+      <input type="checkbox" name="checkbox-others" id="checkbox-others">
+      <label for="checkbox-2020">others</label>
+    </div>
+  </div>
+  <div class="social">
+    <a href="https://www.facebook.com/VongXeXanh" target="_blank"><img src="{% static 'facebook.svg' %}" alt="facebook social link" class="social-icon"></a>
+    <a href="https://www.instagram.com/vong_xe_xanh/" target="_blank"><img src="{% static 'instagram.svg' %}" alt="instagram social link" class="social-icon"></a>
   </div>
 </nav>
 <script>

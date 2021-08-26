@@ -7,8 +7,46 @@ body {
 a {
     -webkit-tap-highlight-color:  rgba(255, 255, 255, 0); 
 }
+h2 {
+    text-align: center;
+    font-size: 20px;
+    font-family: 'Noto Serif', serif;
+}
+header {
+    z-index: 500;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    text-align: right;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    gap: 2px;
+    user-select: none;
+    pointer-events: none;
+    color: #000;
+    padding: 20px;
+    background-color: rgba(255,255,255,.4);
+}
+header h1 {
+    text-transform: uppercase;
+    font-family: 'Noto Serif', serif;
+    font-weight: 700;
+    font-size: 24px;
+    letter-spacing: 1px;
+    text-align: center;
+    margin: 0; 
+
+}
+header p {
+    margin: 0;
+    font-size: 16px;
+}
+header small {
+    font-size: 12px;;
+}
 .navbar {
-    z-index: 10000;
+    z-index: 500;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -17,7 +55,7 @@ a {
     background-color: white;
     display: flex;
     flex-flow: column nowrap;
-    align-items: center;;
+    align-items: start;
 }
 .logo-container {
     width: 20vw;
@@ -29,24 +67,16 @@ a {
     background-position: 50% 50%;
     background-size: 135%;
 }
-h1 {
-    text-transform: uppercase;
-    font-family: 'Noto Serif', serif;
-    font-weight: 700;
-    font-size: 140%;
-    letter-spacing: 1px;
-    text-align: center;
-    width: 100%;
-    padding-bottom: 20px;
-}
+
 .route-section {
     padding: 20px 10px;
+    align-self: stretch;
 }
 .routes {
     display: flex;
     flex-flow: row nowrap;
     margin: 0;
-    padding: 0;
+    padding: 0 0 0 10px;
 }
 .route-year {
     list-style-type: none;
@@ -64,7 +94,7 @@ h1 {
     overflow-y: scroll;
     flex-flow: column nowrap;
     background-color: rgb(241, 241, 241);
-    height: calc(100vh - 20vw - 110px - 161px);;
+    height: calc(100vh - 20vw - 100px - 15vh);;
     position: absolute;
     left: 10px;
     right: 10px;
@@ -100,10 +130,23 @@ h1 {
     position: absolute;
     bottom: 0;
     left: 10px;
-    right: 10px;
-    height: 110px;
+    right: 70px;
+    height: 15vh;
     display: flex;
     flex-flow: column nowrap;
+    justify-content: center;
+}
+.social {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    z-index: 400;
+    display: flex;
+    flex-flow: column nowrap;
+}
+.social-icon {
+    width: 50px;
+    height: 50px;
 }
 .leaflet-pane img.hidden-post {
     display: none;
