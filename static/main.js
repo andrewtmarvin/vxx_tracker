@@ -34,11 +34,11 @@ for (i = 0; i < json_length; i++) {
 			</video>`;
 		}
 		postPopCont += `
-			<ul>
-				<li>${new Date(json_stuff[i][1].slice(0, 10)).toDateString()}</li>
-				<li>${json_stuff[i][3]}</li>
-				<li>${json_stuff[i][2]}</li>
-				<li>Posted by <a href="${json_stuff[i][9]}">${json_stuff[i][8]}</a></li>
+			<ul class="popup-post-details">
+				<li class="popup-post-date popup-list-item">${new Date(json_stuff[i][1].slice(0, 10)).toDateString()}</li>
+				<li class="popup-post-location popup-list-item">${json_stuff[i][3]}</li>
+				<li class="popup-post-comment popup-list-item">${json_stuff[i][2]}</li>
+				<li class="popup-post-poster popup-list-item"><a href="${json_stuff[i][9]}">${json_stuff[i][8]}</a></li>
 			</ul>`;
 	} catch (e) {
 		console.log(e);
@@ -115,40 +115,36 @@ document.querySelectorAll('.route-menu-item').forEach((element) => {
 							.on('addpoint', function (e) {
 								if (e.point_type === 'end') {
 									// console.log(e.target._info); //prints everything we can call from the gpx file
-									this.options.routePopCont =
-										"<p class='route-title'>" +
-										window['route' + e.target.get_start_time().getFullYear() + day] +
-										"</p><p class='route-details'>" +
-										new Date(
+									this.options.routePopCont = `
+									<p class='route-title'>${window['route' + e.target.get_start_time().getFullYear() + day]}</p>
+									<ul class='popup-route-details'>
+										<li class="route-date popup-list-item">
+										${new Date(
 											e.target
 												.get_start_time()
 												.toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' })
 												.split(',')[0]
-										).toDateString() +
-										'<br/>' +
-										e.target
+										).toDateString()}
+										</li>
+										<li class="route-time popup-list-item">${e.target
 											.get_start_time()
 											.toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' })
-											.split(',')[1] +
-										' &rarr; ' +
-										e.target
-											.get_end_time()
-											.toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' })
-											.split(',')[1] +
-										'<br/>Moving time: ' +
-										e.target.get_duration_string(e.target.get_moving_time()) +
-										'<br/>Average speed: ' +
-										e.target.get_total_speed().toFixed(2) +
-										' km/h<br/>Distance: ' +
-										(e.target.get_distance() / 1000).toFixed(2) +
-										' km<br/>Elevation gain: ' +
-										Math.round(e.target.get_elevation_gain()) +
-										'm</p><details>' +
-										'<summary>Day ' +
-										day +
-										' Journal</summary>' +
-										window['route' + e.target.get_start_time().getFullYear() + day + '-text'] +
-										'</details>';
+											.split(
+												','
+											)[1]}&nbsp;&rarr;&nbsp;${e.target
+										.get_end_time()
+										.toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' })
+										.split(',')[1]}</li>
+										<li class="route-moving popup-list-item">${e.target.get_duration_string(e.target.get_moving_time())}</li>
+										<li class="route-speed popup-list-item">${e.target.get_total_speed().toFixed(2)}&nbsp;km/h</li>
+										<li class="route-distance popup-list-item">${(e.target.get_distance() / 1000).toFixed(2)}&nbsp;km</li>
+										<li class="route-elevation popup-list-item">${Math.round(e.target.get_elevation_gain())}&nbsp;m</li>
+									</ul>
+									<details>
+										<summary>Day&nbsp;${day}&nbsp;Journal</summary>
+										${window['route' + e.target.get_start_time().getFullYear() + day + '-text']}
+									</details>
+									`;
 									mymap.openPopup(this.options.routePopCont, e.point['_latlng'], {
 										direction: 'bottom'
 									});

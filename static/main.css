@@ -203,14 +203,47 @@ img, video {
     font-weight: 400;
     font-size: 14px;
 }
-.leaflet-popup-content ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
 .popupImage {
     width: 500px;
 }
+/* Applies to both post and route popup text */
+.leaflet-popup-content ul {
+    list-style-type: none;
+    margin-top: 10px;
+}
+.leaflet-popup-content ul li:not(:last-of-type) {
+    margin-bottom: 10px;
+}
+.popup-list-item {
+    position: relative;
+    
+}
+/* Post popup text */
+.popup-post-details {
+    padding-left: 80px;
+}
+.popup-post-details li::before {
+    font-weight: bold;
+    width: 80px;
+    position: absolute;
+    left: -80px;
+    top: 0;
+}
+.popup-post-date::before {
+    content: "Date:";
+}
+.popup-post-location::before {
+    content: "Location:";
+}
+.popup-post-comment::before {
+    content: "Comment:";
+    font-weight: bold;
+}
+.popup-post-poster::before {
+    content: "Posted by:";
+    font-weight: bold;
+}
+/* Route popups */
 .route-title {
     font-family: 'Noto Serif', serif;
     font-weight: 700;
@@ -219,12 +252,34 @@ img, video {
     text-transform: uppercase;
     white-space: nowrap;
 }
-.route-details {
-
+.popup-route-details {
     white-space: nowrap;
-    display:inline-block;
-    padding:0px 15px 15px 15px;
-    margin: 0px!important;
+    padding-left: 80px;
+}
+.popup-route-details li::before {
+    font-weight: bold;
+    width: 80px;
+    position: absolute;
+    left: -80px;
+    top: 0;
+}
+.route-date::before {
+    content: "Date:";
+}
+.route-time::before {
+    content: "Time:";
+}
+.route-moving::before {
+    content: "Moving:";
+}
+.route-speed::before {
+    content: "Avg speed:";
+}
+.route-distance::before {
+    content: "Distance:";
+}
+.route-elevation::before {
+    content: "Elevation:";
 }
 details {
     text-align: center;
