@@ -19,43 +19,27 @@ for (i = 0; i < json_length; i++) {
 	if (json_stuff[i][2] == null) {
 		json_stuff[i][2] = 'no caption';
 	}
+	let postPopCont = '';
 	// handling image vs video posts
 	try {
 		if (json_stuff[i][6].includes('.jpg')) {
-			popCont =
-				'<img class="popupImage" src="' +
-				json_stuff[i][6] +
-				'" alt="' +
-				json_stuff[i][2] +
-				'"><br/><p>' +
-				new Date(json_stuff[i][1].slice(0, 10)).toDateString() +
-				'<br/>' +
-				json_stuff[i][3] +
-				'<br/>' +
-				json_stuff[i][2] +
-				'<br/>Posted by <a href="' +
-				json_stuff[i][9] +
-				'">' +
-				json_stuff[i][8] +
-				'</a></p>';
+			postPopCont = `
+			<img class="popupImage" src="${json_stuff[i][6]}">`;
 		} else {
-			popCont =
-				'<video controls><source src="' +
-				json_stuff[i][6] +
-				'" type="video/mp4"><source src="' +
-				json_stuff[i][6] +
-				'" type="video/ogg">Your browser does not support the video tag.</video><br/><p>' +
-				json_stuff[i][1].slice(0, 10) +
-				'<br/>' +
-				json_stuff[i][3] +
-				'<br/>' +
-				json_stuff[i][2] +
-				'<br/>Posted by <a href="' +
-				json_stuff[i][9] +
-				'">' +
-				json_stuff[i][8] +
-				'</a></p>';
+			postPopCont = `
+			<video controls>
+				<source src="${json_stuff[i][6]}" type="video/mp4">
+				<source src="${json_stuff[i][6]}" type="video/ogg">
+				Your browser does not support the video tag.
+			</video>`;
 		}
+		postPopCont += `
+			<ul>
+				<li>${new Date(json_stuff[i][1].slice(0, 10)).toDateString()}</li>
+				<li>${json_stuff[i][3]}</li>
+				<li>${json_stuff[i][2]}</li>
+				<li>Posted by <a href="${json_stuff[i][9]}">${json_stuff[i][8]}</a></li>
+			</ul>`;
 	} catch (e) {
 		console.log(e);
 	}
@@ -75,7 +59,7 @@ for (i = 0; i < json_length; i++) {
 		}),
 		riseOnHover: true
 	})
-		.bindPopup(popCont)
+		.bindPopup(postPopCont)
 		.openPopup()
 		.addTo(mymap);
 }
