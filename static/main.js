@@ -2,8 +2,8 @@
 
 const json_length = json_stuff.length;
 // setting up the Leaflet map
-var mymap = L.map('mapid').setView([ 21.027763, 105.83416 ], 8);
-bounds = L.latLngBounds(L.latLng(26.232144, 95.650739), L.latLng(4.034532, 119.481904));
+var mymap = L.map('mapid').setView([ 17, 107 ], 7);
+bounds = L.latLngBounds(L.latLng(29, 92), L.latLng(5, 122));
 mymap.setMaxBounds(bounds);
 // setting the renderer, used for the gps route line later
 var myRenderer = L.canvas({ padding: 0.2, tolerance: 20 });
