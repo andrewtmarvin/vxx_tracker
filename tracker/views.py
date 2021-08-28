@@ -38,21 +38,23 @@ def generate_context():
     posts = []
     try:
         for post in InstaPost.objects.all():
-            post_context = []
-            post_context.append(post.pk)
-            post_context.append(str(post.date))
-            post_context.append(post.caption)
-            post_context.append(post.location_text)
-            post_context.append(post.lat)
-            post_context.append(post.lng)
-            post_context.append(post.pic_file.url)
-            post_context.append(post.thumb_file.url)
-            post_context.append(post.uploader_name)
-            post_context.append(post.uploader_profile_url)
-            posts.append(post_context)
+            if post.lat and post.lng:
+                post_context = []
+                post_context.append(post.pk)
+                post_context.append(str(post.date))
+                post_context.append(post.caption)
+                post_context.append(post.location_text)
+                post_context.append(post.lat)
+                post_context.append(post.lng)
+                post_context.append(post.pic_file.url)
+                post_context.append(post.thumb_file.url)
+                post_context.append(post.uploader_name)
+                post_context.append(post.uploader_profile_url)
+                posts.append(post_context)
+            else:
+                print("Skipping post " + post.pk + ", no location data yet")
     except:
         pass
-    print(posts[0])
 
     # Routes context variables are used by the frontend to create the menu
     routes_2016 = []

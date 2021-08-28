@@ -10,6 +10,7 @@ a {
 }
 img {
     -webkit-user-drag: none;
+    display: block;
 }
 a:active, a:visited {
     color: inherit;
@@ -147,8 +148,8 @@ header small {
 .map-options {
     position: absolute;
     bottom: 0;
-    left: 10px;
-    right: 70px;
+    left: 20px;
+    right: 20px;
     height: 180px;
     display: flex;
     flex-flow: column nowrap;
@@ -163,11 +164,12 @@ header small {
     bottom: 10px;
     z-index: 400;
     display: flex;
-    flex-flow: column nowrap;
+    flex-flow: row nowrap;
+    gap: 10px;
 }
 .social-icon {
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
 }
 .leaflet-pane img.hidden-post {
     display: none;

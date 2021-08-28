@@ -45,13 +45,9 @@ def insta_check(posts):
             except:
                 # only stores posts in database which have a geolocation
                 if post.location == None:
-                    newpostrecord = PostRecord()
-                    newpostrecord.post_id = post.mediaid
-                    newpostrecord.keep = False
-                    newpostrecord.save()
-                    if post.caption:
-                        x += 1
-                        print('post "' + post.caption.rstrip()[:10] + '" does not have geolocation data. x ' + str(x))
+                    x += 1
+                    if post.mediaid:
+                        print('post "' + str(post.mediaid) + '" does not have geolocation data. Storing in database. Manual action: If in Vietnam, add location. Else, add PostRecord set to False then delete InstaPost. x ' + str(x))
                 else:
                     # only stores posts if location is in Vietnam
                     p = geopy.point.Point(post.location.lat, post.location.lng)
@@ -131,27 +127,3 @@ def update_database(post):
     newpost.uploader_profile_url = "https://www.instagram.com/{}/".format(post.owner_profile.username)
     newpost.save()
     print('database updated')
-
-
-# Function to overcome the two-factor authentication required by Instagram when "suspicious login attempt" is generated
-# Depreciated in favor of two-step login which was also depreciated when no longer needed
-# def insta_checkpoint(err):
-#     check_url = err.args[0][50:-38]
-#     # Sets Selenium to run in background
-#     ops = Options()
-#     ops.add_argument('-headless')
-#     ops.add_argument("--disable-dev-shm-usage")
-#     ops.add_argument("--no-sandbox")
-#     # Initiates Instagram checkpoint confirmation code
-#     driver = webdriver.Firefox(firefox_options=ops)
-#     driver.get(check_url)
-#     driver.find_element_by_xpath("//*[contains(text(), 'Send Security Code')]").click()
-#     time.sleep(2)  # Sleeps two seconds to give Instagram time to send email to inbox
-#     # Gets security code from Gmail API
-#     code = readgmail.main()
-#     # Inputs confirmation code into Instagram browser to complete authentication process
-#     driver.find_element_by_name('security_code').send_keys(code)
-#     driver.find_element_by_xpath("//button[contains(text(), 'Submit')]").click()
-#     time.sleep(1)
-#     driver.close()
-#     print('Instagram security check completed')
