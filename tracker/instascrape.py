@@ -47,6 +47,11 @@ def insta_check(posts):
                 if post.location == None:
                     x += 1
                     if post.mediaid:
+                        update_database(post)
+                        newpostrecord = PostRecord()
+                        newpostrecord.post_id = post.mediaid
+                        newpostrecord.keep = True
+                        newpostrecord.save()
                         print('post "' + str(post.mediaid) + '" does not have geolocation data. Storing in database. Manual action: If in Vietnam, add location. Else, add PostRecord set to False then delete InstaPost. x ' + str(x))
                 else:
                     # only stores posts if location is in Vietnam
@@ -61,7 +66,7 @@ def insta_check(posts):
                         print("in " + location.raw['address']['country'], 'saving to database. x ' + str(y))
                         
                         # JSON structure of tagged posts requires slight modification from regular posts
-                        if not post._node['owner']['id'] == VXX_PROFILE_ID:
+                        if post._node['owner']['id'] != VXX_PROFILE_ID:
                             print('this tagged post came from user ID: ' + post._node['owner']['id'])
                             post._node.update({'thumbnail_resources': {0: {'src': post._node['thumbnail_src']}}})
                         
@@ -83,22 +88,25 @@ def insta_check(posts):
 # Function to update the Django database
 def update_database(post):
     newpost = InstaPost()
-    # Check for identical geo coordinates
-    x = InstaPost.objects.filter(lat=post.location.lat, lng=post.location.lng)
-    # If an extant post has the same coordinates, adjust by random amount up to .005 so both markers visible on map
-    if len(x) > 0:
-        print('Identical geolocation found, adjusting...')
-        newpost.lat = post.location.lat + uniform(-.004, .004)
-        newpost.lng = post.location.lng + uniform(-.004, .004)
-    # If geo coordinates unique, save unchanged
-    else:
-        print("Post coordinates unique, saving as is.")
-        newpost.lat = post.location.lat
-        newpost.lng = post.location.lng
+    try:
+        # Check for identical geo coordinates
+        x = InstaPost.objects.filter(lat=post.location.lat, lng=post.location.lng)
+        # If an extant post has the same coordinates, adjust by random amount up to .005 so both markers visible on map
+        if len(x) > 0:
+            print('Identical geolocation found, adjusting...')
+            newpost.lat = post.location.lat + uniform(-.004, .004)
+            newpost.lng = post.location.lng + uniform(-.004, .004)
+        # If geo coordinates unique, save unchanged
+        else:
+            print("Post coordinates unique, saving as is.")
+            newpost.lat = post.location.lat
+            newpost.lng = post.location.lng
+        newpost.location_text = post.location.name
+    except:
+        pass
     newpost.post_id = post.mediaid
     newpost.date = make_aware(post.date)
     newpost.caption = post.caption
-    newpost.location_text = post.location.name
     # Change the URL if it's a video
     post._obtain_metadata()
     post_media_url = post.url
@@ -114,7 +122,15 @@ def update_database(post):
     finally:
         urlcleanup()
     # Save post thumbnail to server and store local URI to database
-    post_thumbnail_url = post._node['thumbnail_resources'][0]['src']
+    try:
+        post_thumbnail_url = post._node['thumbnail_resources'][0]['src']
+    except:
+        try:
+            post_thumbnail_url = post._node['thumbnail_src']
+        except:
+            print("couldn't get thumb file")
+            print(post._node)
+            exit()
     try:
         mime = magic.Magic(mime=True) 
         tempname, _ = urlretrieve(post_thumbnail_url)

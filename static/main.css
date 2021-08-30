@@ -110,7 +110,7 @@ header small {
     overflow-y: scroll;
     flex-flow: column nowrap;
     background-color: rgb(241, 241, 241);
-    height: calc(100vh - 20vw - 140px - 180px);;
+    height: calc(100vh - 20vw - 140px - 150px);;
     position: absolute;
     left: 10px;
     right: 10px;
@@ -150,7 +150,7 @@ header small {
     bottom: 0;
     left: 20px;
     right: 20px;
-    height: 180px;
+    height: 150px;
     display: flex;
     flex-flow: column nowrap;
     justify-content: start;
@@ -238,7 +238,7 @@ img, video {
     content: "Location:";
 }
 .popup-post-comment::before {
-    content: "Comment:";
+    content: "Caption:";
     font-weight: bold;
 }
 .popup-post-poster::before {
@@ -297,6 +297,15 @@ details summary::-webkit-details-marker {
   display:none;
 }
 iframe {
-    max-width: 75vw !important;
     margin-top: 10px;
+}
+
+@media only screen and (max-width: 1366px) {
+    .popupImage {
+        width: 400px;
+    }
+}
+
+@media only screen and (max-width: 962px) {
+
 }
