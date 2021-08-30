@@ -38,7 +38,6 @@ def generate_context():
     posts = []
     try:
         for post in InstaPost.objects.all():
-            print(post.lat)
             if post.lat != None and post.lng != None:
                 post_context = []
                 post_context.append(post.pk)

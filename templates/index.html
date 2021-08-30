@@ -13,31 +13,33 @@
 <aside class="navbar">
     <div class="logo-container"></div>
     <div class="route-section">
-      <h2>Explore Route</h2>
+      <h2>Explore Routes</h2>
       <ul class="routes">
         <li class="route-year">
           <a class="route-year-link route-year-link-active" href="#">2020</a>
-          <div class="route-year-menu route-year-menu-visible">
+          <ul class="route-year-menu route-year-menu-visible">
+            <span class="route-year-menu-mobile-expand">&nbsp;&#x25BC;</span>
             {% for year, day, url, title, journal in routes_2020 %}
-            <a class="route-menu-item" href="#" data-day="{{day}}" name="{{ url }}">{{title}}</a>
+            <li class="route-menu-item"><a href="#" data-day="{{day}}" name="{{ url }}">{{title}}</a></li>
             <script>
                 window["route{{year}}{{day}}"] = "{{title}}";
                 window["route{{year}}{{day}}-text"] = '{{journal|safe}}';
             </script>
             {% endfor %}
-        </div>
-      </li>
+          </ul>
+        </li>
         <li class="route-year">
           <a class="route-year-link" href="#">2016</a>
-          <div class="route-year-menu">
+          <ul class="route-year-menu">
+            <span class="route-year-menu-mobile-expand">&nbsp;&#x25BC;</span>
               {% for year, day, url, title, journal in routes_2016 %}
-              <a class="route-menu-item" href="#" data-day="{{day}}" name="{{ url }}">{{title}}</a>
+              <li class="route-menu-item"><a href="#" data-day="{{day}}" name="{{ url }}">{{title}}</a></li>
               <script>
                   window["route{{year}}{{day}}"] = "{{title}}";
                   window["route{{year}}{{day}}-text"] = '{{journal|safe}}';
               </script>
               {% endfor %}
-          </div>
+          </ul>
         </li>
     </ul>
   </div>

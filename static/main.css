@@ -110,7 +110,8 @@ header small {
     overflow-y: scroll;
     flex-flow: column nowrap;
     background-color: rgb(241, 241, 241);
-    height: calc(100vh - 20vw - 140px - 150px);;
+    height: calc(100vh - 20vw - 140px - 150px);
+    padding: 0;
     position: absolute;
     left: 10px;
     right: 10px;
@@ -131,16 +132,24 @@ header small {
 .route-year-menu-visible {
     display: flex;
 }
+.route-year-menu-mobile-expand {
+    display: none;
+}
 .route-menu-item {
-    text-decoration: none;
-    color: black;
+    list-style-type: none;
+}
+.route-menu-item a {
     padding: 10px;
     padding-bottom: 0;
     width: calc(100% - 20px);
-    white-space: nowrap;
+    display: inline-block;
+    text-decoration: none;
+    color: black;
     direction: ltr;
+    white-space: nowrap;
     overflow-x: clip;
     text-overflow: ellipsis;
+    
 }
 .route-menu-item:hover {
     text-decoration: underline;
@@ -307,5 +316,79 @@ iframe {
 }
 
 @media only screen and (max-width: 962px) {
+    .navbar {
+        bottom: unset;
+        right: 0;
+        height: 100px;
+        flex-flow: row nowrap;
+        align-items: center;
+    }
+    #mapid {
+        position: absolute;
+        height:calc(100vh - 100px);
+        width:100vw;
+        bottom: 0;
+    }
+    .leaflet-control-container {
+        position: absolute;
+        right: 53px;
+        bottom: 199px;
+    }
+    .logo-container {
+        width: 125px;
+        height: 100px;
+        background-size: 120%;
+        flex-shrink: 0;
+    }
+    .map-options, .social {
+        display: none;
+    }
+    .route-section {
+        flex: 1 100%;
+        padding: 10px;
+        padding-top: 0;
+    }
+    .route-section h2 {
+        display: none;
+    }
+    .route-year-link {
+        border-radius: 0;
+    }
+    .route-year-menu {
+        display: none;
+        overflow: hidden;
+        height: 58px;
+        padding-left: 10px;
+        left: 125px;
+        right: 0px;
+        direction: rtl;
+        border-radius: 0px;
+    }
+    .route-year-menu li {
+        padding-top: 9px;
+    }
+    .route-year-menu li a {
+        width: calc(100% - 10px);
+        margin-right: auto;
+        position: relative;
+    }
+    .route-year-menu li a span {
+        width: 40px;
+        display: inline-block;
+    }
+    .route-year-menu-mobile-expand {
+        display: block;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        z-index: 500;
+    }
+    .route-year-menu-visible {
+        display: flex;
+    }
+    .route-year-menu-visible li {
+        
+    }
 
 }
