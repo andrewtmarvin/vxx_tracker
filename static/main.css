@@ -102,14 +102,14 @@ header small {
     transform: translateY(0);
 }
 .route-year-link-active {
-    background-color: rgb(241, 241, 241);
+    background-color: rgb(212, 212, 212);
     border-radius: 5px 5px 0 0 ;
 }
 .route-year-menu {
     display: none;
     overflow-y: scroll;
     flex-flow: column nowrap;
-    background-color: rgb(241, 241, 241);
+    background-color: rgb(212, 212, 212);
     height: calc(100vh - 20vw - 140px - 150px);
     padding: 0;
     position: absolute;
@@ -118,15 +118,14 @@ header small {
     direction: rtl;
     border-radius: 5px;
 }
-.route-year-menu::-webkit-scrollbar
-{
+.route-year-menu::-webkit-scrollbar {
 	width: 6px;
-	background-color: rgb(241, 241, 241);
+	background-color: rgb(212, 212, 212);
     border-radius: 5px 0 0 5px;
 }
 .route-year-menu::-webkit-scrollbar-thumb
 {
-    background-color: lightgray;
+    background-color: darkgray;
     border-radius: 5px;
 }
 .route-year-menu-visible {
@@ -142,6 +141,7 @@ header small {
     padding: 10px;
     padding-bottom: 0;
     width: calc(100% - 20px);
+    height: 75%;
     display: inline-block;
     text-decoration: none;
     color: black;
@@ -151,7 +151,7 @@ header small {
     text-overflow: ellipsis;
     
 }
-.route-menu-item:hover {
+.route-menu-item a:hover {
     text-decoration: underline;
 }
 .map-options {
@@ -310,6 +310,19 @@ iframe {
 }
 
 @media only screen and (max-width: 1366px) {
+    .navbar {
+        right: 70vw;
+    }
+    .logo-container {
+        width: 30vw;
+        height: 30vw;
+    }
+    #mapid {
+        width: 70vw;
+    }
+    .route-year-menu {
+        height: calc(100vh - 30vw - 140px - 150px);
+    }
     .popupImage {
         width: 400px;
     }
@@ -352,7 +365,7 @@ iframe {
         display: none;
     }
     .route-year-link {
-        border-radius: 0;
+        transform: unset;
     }
     .route-year-menu {
         display: none;
@@ -362,15 +375,19 @@ iframe {
         left: 125px;
         right: 0px;
         direction: rtl;
-        border-radius: 0px;
     }
     .route-year-menu li {
-        padding-top: 9px;
+        display: contents;
     }
     .route-year-menu li a {
-        width: calc(100% - 10px);
-        margin-right: auto;
         position: relative;
+        padding: 10px;
+        width: calc(100% - 70px);
+        margin-right: 60px;
+    }
+    .route-year-menu li:first-of-type a {
+        padding-top: 20px;
+        padding-bottom: 20px;
     }
     .route-year-menu li a span {
         width: 40px;
@@ -378,11 +395,19 @@ iframe {
     }
     .route-year-menu-mobile-expand {
         display: block;
-        position: absolute;
-        top: 50%;
+        position: fixed;
+        top: 70px;
         right: 0;
         transform: translateY(-50%);
         z-index: 500;
+        padding: 10px 20px;
+    }
+    .route-menu-mobile-open {
+        overflow-y: scroll;
+        height: auto;
+        max-height: 50vh;
+        padding-left: 4px;
+        border-bottom: 10px solid rgb(212, 212, 212);
     }
     .route-year-menu-visible {
         display: flex;

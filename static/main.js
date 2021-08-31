@@ -81,8 +81,8 @@ document.querySelectorAll('.route-menu-item').forEach((element) => {
 		const link = e.target;
 		let s = link.name.substring(9).replace('/', '').replace('/', '');
 		let day = link.dataset.day;
-		if (link.style.backgroundColor !== 'rgb(211, 211, 211)') {
-			link.style.backgroundColor = 'rgb(211, 211, 211)';
+		if (link.style.color !== 'rgb(155, 155, 155)') {
+			link.style.color = 'rgb(155, 155, 155)';
 			fetch(link.name)
 				.then((response) => response.text())
 				.then((text) => {
@@ -240,3 +240,22 @@ const displayPostsByYear = () => {
 document
 	.querySelectorAll('.checkbox-group input')
 	.forEach((input) => input.addEventListener('click', displayPostsByYear));
+
+// Mobile Menu Section
+const closeMobileMenus = () => {
+	document.querySelectorAll('.route-year-menu').forEach((menu) => {
+		menu.classList.remove('route-menu-mobile-open');
+	});
+};
+
+// Open mobile menu on dropdown click
+document.querySelectorAll('.route-year-menu-mobile-expand').forEach((element) => {
+	element.addEventListener('click', (e) => {
+		e.target.parentElement.classList.toggle('route-menu-mobile-open');
+	});
+});
+
+// Close mobile menu upon clicking item or outside route section
+document.addEventListener('click', (e) => {
+	if (!e.target.classList.contains('route-year-menu-mobile-expand')) closeMobileMenus();
+});
