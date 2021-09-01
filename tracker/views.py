@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse
 from . import instascrape
-from .models import InstaPost, DayRoute
+from tracker.models import InstaPost, DayRoute
 import json
 
 
