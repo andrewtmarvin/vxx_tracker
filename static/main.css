@@ -171,6 +171,7 @@ header small {
 }
 .checkbox-group * {
     cursor: pointer;
+    vertical-align: middle;
 }
 .social {
     position: absolute;
@@ -454,9 +455,12 @@ iframe {
         height: 110px;
         justify-content: center;
         left: 15px;
+        font-size: 12px;
     }
     .map-options h2 {
-        display: none;
+        font-size: 14px;
+        margin: 0;
+        margin-bottom: 5px;
     }
     .social {
         bottom: 15px;
