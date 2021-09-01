@@ -7,7 +7,7 @@ from urllib.request import urlretrieve, urlcleanup
 import mimetypes
 import magic
 
-from credentials import *
+# from credentials import *
 
 
 def main():
