@@ -24,9 +24,9 @@ MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 SECRET_KEY = 'r@t!u0c3jbq5!dr_kt1ms(uc0zcr5d0c_wke+gzm65(yd@x8nn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['vxx-journeys.herokuapp.com']
+ALLOWED_HOSTS = ['vxx-journeys.herokuapp.com', '127.0.0.1']
 
 # Application definition
 
@@ -123,8 +123,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_DIR = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     STATIC_DIR,
 ]
