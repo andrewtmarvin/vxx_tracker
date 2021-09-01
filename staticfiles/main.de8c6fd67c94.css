@@ -1,0 +1,473 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    background-color: lightslategray;
+    margin: 0px;
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: 400;
+}
+a {
+    -webkit-tap-highlight-color:  rgba(255, 255, 255, 0); 
+    -webkit-user-drag: none;
+}
+img {
+    -webkit-user-drag: none;
+    display: block;
+}
+a:active, a:visited {
+    color: inherit;
+}
+h2 {
+    text-align: center;
+    font-size: 20px;
+    font-family: 'Noto Serif', serif;
+    font-weight: 700;
+}
+header {
+    z-index: 500;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    text-align: right;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    gap: 2px;
+    user-select: none;
+    pointer-events: none;
+    color: #000;
+    padding: 20px;
+    background-color: rgba(255,255,255,.4);
+}
+header h1 {
+    text-transform: uppercase;
+    font-family: 'Noto Serif', serif;
+    font-weight: 700;
+    font-size: 24px;
+    letter-spacing: 1px;
+    text-align: center;
+    margin: 0; 
+
+}
+header p {
+    margin: 0;
+    font-size: 16px;
+}
+header small {
+    font-size: 12px;;
+}
+.navbar {
+    z-index: 500;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 80vw;
+    background-color: white;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: start;
+}
+.logo-container {
+    width: 20vw;
+    height: 20vw;
+    display: block;
+    overflow: hidden;
+    align-self: start;
+    background-image: url("mainlogo.e1940dac805f.png");
+    background-position: 50% 50%;
+    background-size: 135%;
+}
+
+.route-section {
+    padding: 20px 10px;
+    align-self: stretch;
+}
+.routes {
+    display: flex;
+    flex-flow: row nowrap;
+    margin: 0;
+    padding: 0 0 0 10px;
+}
+.route-year {
+    list-style-type: none;
+}
+.route-year-link {
+    text-decoration: none;
+    padding: 10px;
+    font-family: 'Noto Serif', serif;
+    font-weight: 700;
+    display: inline-block;
+    transform: translateY(1px);
+}
+.route-year-link:hover {
+    transform: translateY(0);
+}
+.route-year-link-active {
+    background-color: rgb(240, 240, 240);
+    border-radius: 5px 5px 0 0 ;
+}
+.route-year-menu {
+    display: none;
+    overflow-y: scroll;
+    flex-flow: column nowrap;
+    background-color: rgb(240, 240, 240);
+    height: calc(100vh - 20vw - 140px - 150px);
+    min-height: 125px;
+    padding: 0;
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    direction: rtl;
+    border-radius: 5px;
+}
+.route-year-menu::-webkit-scrollbar {
+	width: 6px;
+	background-color: rgb(240, 240, 240);
+    border-radius: 5px 0 0 5px;
+}
+.route-year-menu::-webkit-scrollbar-thumb
+{
+    background-color: darkgray;
+    border-radius: 5px;
+}
+.route-year-menu-visible {
+    display: flex;
+}
+.route-year-menu-mobile-expand {
+    display: none;
+}
+.route-menu-item {
+    list-style-type: none;
+}
+.route-menu-item a {
+    padding: 10px;
+    padding-bottom: 0;
+    width: calc(100% - 20px);
+    height: 75%;
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+    direction: ltr;
+    white-space: nowrap;
+    overflow-x: clip;
+    text-overflow: ellipsis;
+    
+}
+.route-menu-item a:hover {
+    text-decoration: underline;
+}
+.map-options {
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+    right: 20px;
+    height: 150px;
+    max-height: 20vh;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: start;
+}
+.checkbox-group * {
+    cursor: pointer;
+    vertical-align: middle;
+}
+.social {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    z-index: 400;
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 10px;
+}
+.social-icon {
+    width: 30px;
+    height: 30px;
+}
+.leaflet-pane img.hidden-post {
+    display: none;
+}
+#mapid {
+    position: absolute;
+    height:100vh;
+    width:80vw;
+    right: 0;
+}
+.leaflet-top {
+    margin: 0;
+}
+.leaflet-right {
+    display: none;
+}
+.leaflet-marker-icon {
+    border-radius: 10%;
+    border: 2px white solid;
+    box-shadow: 1px 1px 2px gray;
+}
+.map-pin {
+    border: none;
+    box-shadow: none;
+}
+.leaflet-popup-content {
+    width: auto!important;
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+}
+.popupImage {
+    width: 500px;
+}
+/* Applies to both post and route popup text */
+.leaflet-popup-content ul {
+    list-style-type: none;
+    margin-top: 10px;
+}
+.leaflet-popup-content ul li:not(:last-of-type) {
+    margin-bottom: 10px;
+}
+.popup-list-item {
+    position: relative;
+    
+}
+/* Post popup text */
+.popup-post-details {
+    padding-left: 80px;
+}
+.popup-post-details li::before {
+    font-weight: bold;
+    width: 80px;
+    position: absolute;
+    left: -80px;
+    top: 0;
+}
+.popup-post-date::before {
+    content: "Date:";
+}
+.popup-post-location::before {
+    content: "Location:";
+}
+.popup-post-comment::before {
+    content: "Caption:";
+    font-weight: bold;
+}
+.popup-post-poster::before {
+    content: "Posted by:";
+    font-weight: bold;
+}
+/* Route popups */
+.route-title {
+    font-family: 'Noto Serif', serif;
+    font-weight: 700;
+    font-size: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+.popup-route-details {
+    white-space: nowrap;
+    padding-left: 80px;
+}
+.popup-route-details li::before {
+    font-weight: bold;
+    width: 80px;
+    position: absolute;
+    left: -80px;
+    top: 0;
+}
+.route-date::before {
+    content: "Date:";
+}
+.route-time::before {
+    content: "Time:";
+}
+.route-moving::before {
+    content: "Moving:";
+}
+.route-speed::before {
+    content: "Avg speed:";
+}
+.route-distance::before {
+    content: "Distance:";
+}
+.route-elevation::before {
+    content: "Elevation:";
+}
+details {
+    text-align: center;
+}
+summary {
+    display: inline-block!important;
+    font-weight: bold;
+    border: 1px black solid;
+    width: 100px;
+    cursor: pointer;
+}
+details summary::-webkit-details-marker {
+  display:none;
+}
+iframe {
+    margin-top: 10px;
+}
+
+@media only screen and (max-width: 1366px) {
+    .navbar {
+        right: 70vw;
+    }
+    .logo-container {
+        width: 30vw;
+        height: 30vw;
+    }
+    #mapid {
+        width: 70vw;
+    }
+    .route-year-menu {
+        height: calc(100vh - 30vw - 140px - 150px);
+    }
+    .popupImage {
+        width: 400px;
+    }
+}
+
+@media only screen and (max-width: 962px) {
+    img, video {
+        max-width: 65vw!important;
+        overflow:auto!important;
+    }
+    .navbar {
+        bottom: unset;
+        right: 0;
+        height: 100px;
+        flex-flow: row nowrap;
+        align-items: center;
+    }
+    #mapid {
+        position: absolute;
+        height:calc(100vh - 100px);
+        width:100vw;
+        bottom: 0;
+    }
+    .leaflet-control-container {
+        position: absolute;
+        right: 53px;
+        bottom: 199px;
+    }
+    .logo-container {
+        width: 125px;
+        height: 100px;
+        background-size: 120%;
+        flex-shrink: 0;
+    }
+    .route-section {
+        flex: 1 100%;
+        padding: 10px;
+        padding-top: 0;
+    }
+    .route-section h2 {
+        display: none;
+    }
+    .route-year-link {
+        transform: unset;
+    }
+    .route-year-menu {
+        display: none;
+        overflow: hidden;
+        height: 58px;
+        padding-left: 10px;
+        left: 125px;
+        right: 0px;
+        direction: rtl;
+        min-height: unset;
+    }
+    .route-year-menu li {
+        display: contents;
+    }
+    .route-year-menu li a {
+        position: relative;
+        padding: 10px;
+        width: calc(100% - 70px);
+        margin-right: 60px;
+    }
+    .route-year-menu li:first-of-type a {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    .route-year-menu li a span {
+        width: 40px;
+        display: inline-block;
+    }
+    .route-year-menu-mobile-expand {
+        display: block;
+        position: fixed;
+        top: 70px;
+        right: 0;
+        transform: translateY(-50%);
+        z-index: 500;
+        padding: 10px 20px;
+    }
+    .route-menu-mobile-open {
+        overflow-y: scroll;
+        height: auto;
+        max-height: 50vh;
+        padding-left: 4px;
+        border-bottom: 10px solid rgb(240, 240, 240);
+    }
+    .route-year-menu-visible {
+        display: flex;
+    }
+    .leaflet-popup-content-wrapper {
+        max-width: 80vw;
+    }
+    .leaflet-popup-content details iframe {
+        display: none!important;
+    }
+    .route-title {
+        white-space: normal;
+    }
+    header {
+        bottom: 0;
+        right: 0;
+        left: 0;
+        height: 110px;
+        text-align: right;
+        justify-content: flex-start; 
+        align-items: flex-end;
+        gap: 0;
+        user-select: unset;
+        pointer-events: unset;
+        padding: 15px;
+        background-color: rgba(255,255,255,1);
+    }
+    header h1 {
+        font-size: 16px;
+        text-align: right;
+    }
+    header p, header small {
+        font-size: 12px;
+    }
+    .map-options, .social {
+        position: fixed;
+        bottom: 0;
+    }
+    .map-options {
+        width: max-content;
+        height: 110px;
+        justify-content: center;
+        left: 15px;
+        font-size: 12px;
+    }
+    .map-options h2 {
+        font-size: 14px;
+        margin: 0;
+        margin-bottom: 5px;
+    }
+    .social {
+        bottom: 15px;
+        right: 15px;
+    }
+    .social img {
+        width: 20px;
+        height: 20px;
+    }
+}
