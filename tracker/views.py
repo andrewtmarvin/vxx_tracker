@@ -80,6 +80,7 @@ def generate_context():
             day_context.append(day.title)
             day_context.append(day.journal)
             routes_2020.append(day_context)
-    except:
+    except Exception as e:
         print('error generating context')
+        print(e)
     return posts, routes_2016, routes_2020
