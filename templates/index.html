@@ -20,7 +20,7 @@
           <ul class="route-year-menu route-year-menu-visible">
             <span class="route-year-menu-mobile-expand">&nbsp;&#x25BC;</span>
             {% for year, day, url, title, journal in routes_2020 %}
-            <li class="route-menu-item"><a href="#" data-day="{{day}}" name="{{ url }}">{{title}}</a></li>
+            <li class="route-menu-item"><a href="#" class="route-menu-item-link" data-day="{{day}}" name="{{ url }}">{{title}}</a></li>
             <script>
                 window["route{{year}}{{day}}"] = "{{title}}";
                 window["route{{year}}{{day}}-text"] = '{{journal|safe}}';
@@ -33,7 +33,7 @@
           <ul class="route-year-menu">
             <span class="route-year-menu-mobile-expand">&#x25BC;</span>
               {% for year, day, url, title, journal in routes_2016 %}
-              <li class="route-menu-item"><a href="#" data-day="{{day}}" name="{{ url }}">{{title}}</a></li>
+              <li class="route-menu-item"><a href="#" class="route-menu-item-link" data-day="{{day}}" name="{{ url }}">{{title}}</a></li>
               <script>
                   window["route{{year}}{{day}}"] = "{{title}}";
                   window["route{{year}}{{day}}-text"] = '{{journal|safe}}';

@@ -5,7 +5,7 @@ import json
 
 
 # Upon server reload, run function to update the Django database
-instascrape.main()
+# instascrape.main()
 
 
 # View for main page

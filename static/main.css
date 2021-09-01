@@ -1,3 +1,6 @@
+* {
+    box-sizing: border-box;
+}
 body {
     background-color: lightslategray;
     margin: 0px;
@@ -102,15 +105,16 @@ header small {
     transform: translateY(0);
 }
 .route-year-link-active {
-    background-color: rgb(212, 212, 212);
+    background-color: rgb(240, 240, 240);
     border-radius: 5px 5px 0 0 ;
 }
 .route-year-menu {
     display: none;
     overflow-y: scroll;
     flex-flow: column nowrap;
-    background-color: rgb(212, 212, 212);
+    background-color: rgb(240, 240, 240);
     height: calc(100vh - 20vw - 140px - 150px);
+    min-height: 125px;
     padding: 0;
     position: absolute;
     left: 10px;
@@ -120,7 +124,7 @@ header small {
 }
 .route-year-menu::-webkit-scrollbar {
 	width: 6px;
-	background-color: rgb(212, 212, 212);
+	background-color: rgb(240, 240, 240);
     border-radius: 5px 0 0 5px;
 }
 .route-year-menu::-webkit-scrollbar-thumb
@@ -160,6 +164,7 @@ header small {
     left: 20px;
     right: 20px;
     height: 150px;
+    max-height: 20vh;
     display: flex;
     flex-flow: column nowrap;
     justify-content: start;
@@ -203,10 +208,6 @@ header small {
 .map-pin {
     border: none;
     box-shadow: none;
-}
-img, video {
-    max-width: 50vw!important;
-    overflow:auto!important;
 }
 .leaflet-popup-content {
     width: auto!important;
@@ -329,6 +330,10 @@ iframe {
 }
 
 @media only screen and (max-width: 962px) {
+    img, video {
+        max-width: 65vw!important;
+        overflow:auto!important;
+    }
     .navbar {
         bottom: unset;
         right: 0;
@@ -353,9 +358,6 @@ iframe {
         background-size: 120%;
         flex-shrink: 0;
     }
-    .map-options, .social {
-        display: none;
-    }
     .route-section {
         flex: 1 100%;
         padding: 10px;
@@ -375,6 +377,7 @@ iframe {
         left: 125px;
         right: 0px;
         direction: rtl;
+        min-height: unset;
     }
     .route-year-menu li {
         display: contents;
@@ -407,13 +410,60 @@ iframe {
         height: auto;
         max-height: 50vh;
         padding-left: 4px;
-        border-bottom: 10px solid rgb(212, 212, 212);
+        border-bottom: 10px solid rgb(240, 240, 240);
     }
     .route-year-menu-visible {
         display: flex;
     }
-    .route-year-menu-visible li {
-        
+    .leaflet-popup-content-wrapper {
+        max-width: 80vw;
     }
-
+    .leaflet-popup-content details iframe {
+        display: none!important;
+    }
+    .route-title {
+        white-space: normal;
+    }
+    header {
+        bottom: 0;
+        right: 0;
+        left: 0;
+        height: 110px;
+        text-align: right;
+        justify-content: flex-start; 
+        align-items: flex-end;
+        gap: 0;
+        user-select: unset;
+        pointer-events: unset;
+        padding: 15px;
+        background-color: rgba(255,255,255,1);
+    }
+    header h1 {
+        font-size: 16px;
+        text-align: right;
+    }
+    header p, header small {
+        font-size: 12px;
+    }
+    .map-options, .social {
+        position: fixed;
+        bottom: 0;
+    }
+    .map-options {
+        width: max-content;
+        height: 110px;
+        justify-content: center;
+        left: 15px;
+    }
+    .map-options h2 {
+        display: none;
+    }
+    .social {
+        bottom: 15px;
+        right: 15px;
+    }
+    .social img {
+        width: 20px;
+        height: 20px;
+    }
 }

@@ -38,7 +38,9 @@ for (i = 0; i < json_length; i++) {
 				<li class="popup-post-date popup-list-item">${new Date(json_stuff[i][1].slice(0, 10)).toDateString()}</li>
 				<li class="popup-post-location popup-list-item">${json_stuff[i][3]}</li>
 				<li class="popup-post-comment popup-list-item">${json_stuff[i][2]}</li>
-				<li class="popup-post-poster popup-list-item"><a href="${json_stuff[i][9]}">${json_stuff[i][8]}</a></li>
+				<li class="popup-post-poster popup-list-item"><a target="_blank" href="${json_stuff[i][9]}">${json_stuff[
+			i
+		][8]}</a></li>
 			</ul>`;
 	} catch (e) {
 		console.log(e);
@@ -242,10 +244,15 @@ document
 	.forEach((input) => input.addEventListener('click', displayPostsByYear));
 
 // Mobile Menu Section
-const closeMobileMenus = () => {
+const closeMobileMenus = (element = null) => {
 	document.querySelectorAll('.route-year-menu').forEach((menu) => {
 		menu.classList.remove('route-menu-mobile-open');
 	});
+	// Scrolls the selected link into view while menu is closed
+	if (element != null) {
+		element.scrollIntoView(true);
+		element.parentElement.parentElement.scrollBy(0, -8);
+	}
 };
 
 // Open mobile menu on dropdown click
@@ -257,5 +264,41 @@ document.querySelectorAll('.route-year-menu-mobile-expand').forEach((element) =>
 
 // Close mobile menu upon clicking item or outside route section
 document.addEventListener('click', (e) => {
-	if (!e.target.classList.contains('route-year-menu-mobile-expand')) closeMobileMenus();
+	if (!e.target.classList.contains('route-year-menu-mobile-expand')) {
+		if (e.target.classList.contains('route-menu-item-link')) {
+			closeMobileMenus(e.target);
+			return;
+		}
+		closeMobileMenus();
+	}
 });
+
+/*
+Looks for DOM mutations from route popups and adds event listener to <summary> tag
+Opens Strave or Facebook page in iframe if tablet or desktop but new tab if mobile
+*/
+const popupPane = document.querySelector('.leaflet-pane.leaflet-popup-pane');
+const config = { attributes: false, childList: true, subtree: false };
+const addDetailsEventListner = function (mutationsList, observer) {
+	for (const mutation of mutationsList) {
+		if (mutation.type === 'childList') {
+			document.querySelectorAll('summary').forEach((button) => {
+				button.addEventListener('click', (e) => {
+					if (window.screen.availWidth <= 962) {
+						e.preventDefault();
+						// Journal opens in new page rather than popup
+						let url = decodeURIComponent(decodeURI(e.target.nextElementSibling.src));
+						// Only manipulate Facebook journal posts, not Strava
+						if (url.indexOf('strava') == -1) {
+							url = url.replace('https://www.facebook.com/plugins/post.php?href=', '');
+							url = url.slice(0, url.indexOf('&show'));
+						}
+						window.open(url, '_blank').focus();
+					}
+				});
+			});
+		}
+	}
+};
+const observer = new MutationObserver(addDetailsEventListner);
+observer.observe(popupPane, config);
