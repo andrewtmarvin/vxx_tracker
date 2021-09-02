@@ -10,6 +10,7 @@ body {
 a, a:link, a:visited {
     -webkit-tap-highlight-color:  rgba(255, 255, 255, 0); 
     -webkit-user-drag: none;
+    color: black;
 }
 img {
     -webkit-user-drag: none;
