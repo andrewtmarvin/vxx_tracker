@@ -3,14 +3,14 @@ from django.db import models
 # Models here.
 class PostRecord(models.Model):
     keep = models.BooleanField()
-    post_id = models.IntegerField(unique=True, null=True)
+    post_id = models.BigIntegerField(unique=True, null=True)
 
     def __str__(self):
         return 'Post ID: ' + str(self.post_id) + ' ---- Keep: ' + str(self.keep)
 
 
 class InstaPost(models.Model):
-    post_id = models.IntegerField(unique=True, null=True)
+    post_id = models.BigIntegerField(unique=True, null=True)
     date = models.DateTimeField(auto_now=False)
     caption = models.CharField(null=True, max_length=5000)
     location_text = models.CharField(max_length=2000)
