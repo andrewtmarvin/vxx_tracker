@@ -217,6 +217,9 @@ header small {
     font-weight: 400;
     font-size: 14px;
 }
+img.leaflet-marker-icon.rest-day {
+    z-index: 10000!important;
+}
 .popupImage {
     width: 500px;
 }
@@ -417,11 +420,25 @@ iframe {
     .route-year-menu-visible {
         display: flex;
     }
+    .leaflet-popup {
+        pointer-events: none;
+        margin-left: -6px;
+    }
     .leaflet-popup-content-wrapper {
         max-width: 80vw;
     }
     .leaflet-popup-content details iframe {
         display: none!important;
+    }
+    .leaflet-popup-content details, .leaflet-popup-content summary, .leaflet-popup-content a {
+        pointer-events: all;
+    }
+    .leaflet-marker-icon {
+        width: 35px!important;
+    }
+    img.leaflet-marker-icon.rest-day {
+        width: 40px!important;
+        margin-left: -23px!important;
     }
     .route-title {
         white-space: normal;
@@ -430,14 +447,14 @@ iframe {
         bottom: 0;
         right: 0;
         left: 0;
-        height: 110px;
+        height: 100px;
         text-align: right;
         justify-content: flex-start; 
         align-items: flex-end;
         gap: 0;
         user-select: unset;
         pointer-events: unset;
-        padding: 15px;
+        padding: 10px;
         background-color: rgba(255,255,255,1);
     }
     header h1 {
@@ -453,9 +470,9 @@ iframe {
     }
     .map-options {
         width: max-content;
-        height: 110px;
+        height: 100px;
         justify-content: center;
-        left: 15px;
+        left: 10px;
         font-size: 12px;
     }
     .map-options h2 {
@@ -464,8 +481,8 @@ iframe {
         margin-bottom: 5px;
     }
     .social {
-        bottom: 15px;
-        right: 15px;
+        bottom: 10px;
+        right: 10px;
     }
     .social img {
         width: 20px;

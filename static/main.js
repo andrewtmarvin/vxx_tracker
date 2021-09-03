@@ -198,19 +198,6 @@ document.querySelectorAll('.route-menu-item').forEach((element) => {
 	});
 });
 
-// Route Menu Section
-const routeYearLinks = document.querySelectorAll('.route-year-link');
-const routeYearMenus = document.querySelectorAll('.route-year-menu');
-routeYearLinks.forEach((yearLink) => {
-	yearLink.addEventListener('click', (e) => {
-		e.preventDefault();
-		routeYearLinks.forEach((link) => link.classList.remove('route-year-link-active'));
-		e.target.classList.add('route-year-link-active');
-		routeYearMenus.forEach((menu) => menu.classList.remove('route-year-menu-visible'));
-		e.target.nextElementSibling.classList.add('route-year-menu-visible');
-	});
-});
-
 // Show Posts By VXX Journey Section
 const notJourney = document.querySelectorAll('.not-journey');
 const Journey2016 = document.querySelectorAll('.journey-2016');
@@ -243,7 +230,20 @@ document
 	.querySelectorAll('.checkbox-group input')
 	.forEach((input) => input.addEventListener('click', displayPostsByYear));
 
-// Mobile Menu Section
+// Route Menu Section
+const routeYearLinks = document.querySelectorAll('.route-year-link');
+const routeYearMenus = document.querySelectorAll('.route-year-menu');
+routeYearLinks.forEach((yearLink) => {
+	yearLink.addEventListener('click', (e) => {
+		e.preventDefault();
+		routeYearLinks.forEach((link) => link.classList.remove('route-year-link-active'));
+		e.target.classList.add('route-year-link-active');
+		routeYearMenus.forEach((menu) => menu.classList.remove('route-year-menu-visible'));
+		e.target.nextElementSibling.classList.add('route-year-menu-visible');
+	});
+});
+
+// Mobile Route Menu Section
 const closeMobileMenus = (element = null) => {
 	document.querySelectorAll('.route-year-menu').forEach((menu) => {
 		menu.classList.remove('route-menu-mobile-open');
@@ -270,9 +270,12 @@ document.addEventListener('click', (e) => {
 			return;
 		}
 		closeMobileMenus();
+		// Clicking on route year link opens menu
+		if (e.target.classList.contains('route-year-link')) {
+			e.target.nextElementSibling.classList.add('route-menu-mobile-open');
+		}
 	}
 });
-
 /*
 Looks for DOM mutations from route popups and adds event listener to <summary> tag
 Opens Strave or Facebook page in iframe if tablet or desktop but new tab if mobile
