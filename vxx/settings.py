@@ -20,12 +20,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# If I needed to turn debug off for a client project, I would need to move the media files to an S3 bucket. Otherwise, debug can't be set to False.
+DEBUG = True
 
 ALLOWED_HOSTS = ['vxx-journeys.herokuapp.com', '127.0.0.1']
 
 # Application definition
+
 INSTALLED_APPS = [
     'tracker.apps.TrackerConfig',
     'django.contrib.admin',
@@ -35,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_cron',
+
 ]
 
 MIDDLEWARE = [
@@ -51,6 +53,7 @@ MIDDLEWARE = [
 CRON_CLASSES = [
     "tracker.cronjobs.URLCheckJob",
     "tracker.cronjobs.InstaScrapeJob",
+
 ]
 
 ROOT_URLCONF = 'vxx.urls'
@@ -90,6 +93,9 @@ DATABASES = {
     #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     # },
 }
+
+# Password validation
+# https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
